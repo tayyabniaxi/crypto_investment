@@ -1,42 +1,122 @@
 #picture114 {
-    width: 180px;
-    height: auto;
-    max-height: 65px;
+  width: 180px;
+  height: auto;
+  max-height: 65px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .card114 {
-    width: 375px;
-    max-width: 100%;
-    height: auto;
-    min-height: 250px;
-    padding: 15px;
-    box-sizing: border-box;
+  border-radius: 10px;
+  width: 375px;
+  max-width: 100%;
+  height: auto;
+  min-height: 250px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.card114:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.card114:active {
+  transform: scale(0.98) translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card114:hover #picture114 {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 #card-new-text1 {
-    color: rgb(121, 121, 121);
-    margin-top: 10px;
-    width: 100%;
-    max-width: 341px;
-    height: auto;
-    font-size: 16px;
-    font-weight: 500;
-    font-style: medium;
-    line-height: 22px;
+  color: rgb(121, 121, 121);
+  margin-top: 10px;
+  width: 100%;
+  max-width: 341px;
+  height: auto;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: medium;
+  line-height: 22px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.card114:hover #card-new-text1 {
+  color: rgb(80, 80, 80);
+  transform: translateX(3px);
+}
+.card114::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(115, 146, 249, 0.15) 0%,
+    rgba(115, 146, 249, 0.1) 30%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 10px;
+  pointer-events: none;
+  transform: scale(1.1);
+  background-size: 200% 200%;
+  background-position: 100% 100%;
+}
+
+.card114:hover::after {
+  opacity: 1;
+  transform: scale(1);
+  background-position: 0% 0%;
+  animation: gradientFlow 2.5s ease infinite alternate;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.card114:hover::after {
+  opacity: 1;
 }
 
 @media only screen and (max-width: 375px) {
-    .card114 {
-        width: 90%;
-        margin-bottom: 15px;
-    }
-    
-    #card-new-text1 {
-        font-size: 15px;
-        line-height: 20px;
-    }
-    
-    #picture114 {
-        width: 150px;
-    }
+  .card114 {
+    width: 90%;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+  }
+
+  .card114:hover {
+    transform: translateY(-3px);
+  }
+
+  .card114:active {
+    transform: scale(0.98) translateY(-1px);
+  }
+
+  #card-new-text1 {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  #picture114 {
+    width: 150px;
+    transition: transform 0.2s ease;
+  }
 }

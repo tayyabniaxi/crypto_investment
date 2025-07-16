@@ -11,7 +11,7 @@ export default function Review() {
   return (
     <div id="section1-end">
       <div id="card-section">
-        <div className="main-heading1">
+        <div className="main-heading1" id="Reviews">
           <p>Trusted Reviews</p>
         </div>
         <div id="Card3-end">

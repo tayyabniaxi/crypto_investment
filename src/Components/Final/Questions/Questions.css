@@ -8,8 +8,8 @@
   padding: 10px 15px;
   box-sizing: border-box;
   border-bottom: 1px solid rgb(191, 190, 190);
+  flex-direction: column;
 }
-
 
 .sub-q-1 {
   display: flex;
@@ -43,22 +43,49 @@
   cursor: pointer;
 }
 
+.answer-content {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  animation: fadeIn 0.3s ease-in-out;
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media only screen and (max-width: 375px) {
   .main-q-1 {
     min-height: 50px;
     padding: 8px 12px;
   }
-  
+
   .sub-q-1 p {
     font-size: 14px;
   }
-  
+
   #button1 {
     font-size: 20px;
   }
-  
+
   #button-div {
     width: 22px;
     height: 36px;
+  }
+
+  .answer-content {
+    font-size: 14px;
   }
 }
