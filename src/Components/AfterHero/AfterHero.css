@@ -1,0 +1,141 @@
+.main-div-afterHero {
+  background: linear-gradient(to bottom, #f5faff, #ffffff);
+  width: 100vw;
+  height: 1526px;
+  display: flex;
+  justify-content: center;
+}
+
+.all-data-inside {
+  width: 1487px;
+  height: 724px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-heading1 {
+  display: flex;
+  justify-content: center;
+  width: 628px;
+  height: 105px;
+}
+
+.main-heading1 p {
+  font-size: 70px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0%;
+  margin: 0;
+  padding: 0;
+}
+
+.sub-heading1 {
+  width: 1000px;
+  height: 36px;
+}
+
+.sub-heading1 p {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-style: normal;
+  letter-spacing: 0%;
+  padding: 0;
+  margin: 0;
+  color: #949292;
+}
+
+.cardsInside {
+  margin-top: 57px;
+  display: flex;
+  height: 600px;
+  width: 1487px;
+  gap: 30px;
+}
+
+.Second-cardsInside {
+  margin-top: 80px;
+  width: 1487px;
+  height: 724px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .main-div-afterHero {
+    height: auto;
+    padding: 40px 20px;
+  }
+
+  .all-data-inside,
+  .cardsInside,
+  .Second-cardsInside {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-heading1 {
+    width: 100%;
+    height: auto;
+    text-align: center;
+  }
+
+  .main-heading1 p {
+    font-size: 42px;
+    line-height: 1.2;
+  }
+
+  .sub-heading1 {
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+    margin-top: 15px;
+  }
+
+  .sub-heading1 p {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .cardsInside {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .Second-cardsInside {
+    margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .main-div-afterHero {
+    padding: 30px 15px;
+  }
+
+  .main-heading1 p {
+    font-size: 32px;
+  }
+
+  .sub-heading1 {
+    padding: 0 10px;
+  }
+
+  .sub-heading1 p {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .cardsInside {
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .Second-cardsInside {
+    margin-top: 40px;
+  }
+}

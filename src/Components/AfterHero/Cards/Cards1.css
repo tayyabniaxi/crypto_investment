@@ -1,0 +1,109 @@
+.everycard {
+  width: 350px;
+  height: 530px;
+}
+
+#card {
+  width: 350px;
+  height: 530px;
+  border: 0 solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.card-upper-body {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 330px;
+  height: 250px;
+  background-color: #f2f2f2;
+  padding: 0;
+  border-radius: 10px;
+}
+
+#card-title1 {
+  color: #7392f9;
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+}
+
+#card-text1 {
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+#card-text2 {
+  color: #858484;
+  width: 237px;
+  height: 40px;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#button {
+  background-color: #7392f9;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  width: 310px;
+  height: 50px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#button:hover {
+  background-color: #5a7df5;
+}
+
+#main-list {
+  width: 292px;
+  padding: 20px 10px;
+  margin-top: 20px;
+}
+
+#list1 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#list1 li {
+  display: grid;
+  grid-template-columns: 170px auto;
+  align-items: center;
+  font-size: 16px;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #8b8a8a;
+}
+
+#list1 li strong {
+  color: black;
+  justify-self: start;
+  font-weight: 600;
+}
+
+#list1 li span {
+  font-weight: 400;
+}

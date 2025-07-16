@@ -1,0 +1,42 @@
+#section1-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: auto;
+  padding: 20px 0;
+  background: linear-gradient(to bottom, #f5faff, #ffffff);
+}
+
+#card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1179px;
+  height: auto;
+}
+
+#Card3-end {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  gap: 20px;
+}
+
+@media only screen and (max-width: 375px) {
+  #section1-end {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  #Card3-end {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}

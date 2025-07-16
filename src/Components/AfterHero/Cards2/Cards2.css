@@ -1,0 +1,32 @@
+#picture1 {
+  margin-top: 30px;
+  width: 120px;
+  height: 120px;
+}
+.card-upper-body2 {
+  border: 1.5px solid rgb(174, 174, 174);
+  border-radius: 20px;
+  width: 350px;
+  height: 387px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#card-text1-new {
+  margin-top: 15px;
+  width: 223px;
+  height: 72px;
+  text-align: center;
+  color: #7392f9;
+  font-size: 20px;
+}
+#card-text2-new {
+  width: 293px;
+  height: 120px;
+  text-align: center;
+  color: #656565;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}

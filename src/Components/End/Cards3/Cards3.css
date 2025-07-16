@@ -1,0 +1,42 @@
+#picture114 {
+    width: 180px;
+    height: auto;
+    max-height: 65px;
+}
+
+.card114 {
+    width: 375px;
+    max-width: 100%;
+    height: auto;
+    min-height: 250px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#card-new-text1 {
+    color: rgb(121, 121, 121);
+    margin-top: 10px;
+    width: 100%;
+    max-width: 341px;
+    height: auto;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: medium;
+    line-height: 22px;
+}
+
+@media only screen and (max-width: 375px) {
+    .card114 {
+        width: 90%;
+        margin-bottom: 15px;
+    }
+    
+    #card-new-text1 {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    
+    #picture114 {
+        width: 150px;
+    }
+}
