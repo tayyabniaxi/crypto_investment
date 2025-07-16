@@ -55,17 +55,22 @@ export default function Navbar() {
               </a>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#">
+              <a className="menu-link" href="#FAQs">
+                FAQs
+              </a>
+            </li>
+            <li className="menu-item">
+              <a className="menu-link" href="#Plans">
                 Plans
               </a>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#">
+              <a className="menu-link" href="#Reviews">
                 Reviews
               </a>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#">
+              <a className="menu-link" href="#Conatacts">
                 Contact
               </a>
             </li>

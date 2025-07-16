@@ -9,6 +9,13 @@
   display: flex;
   justify-content: center;
   background-color: white;
+  transition: all 0.3s ease;
+}
+
+.my-investment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-color: #000000;
 }
 
 .my-investment-card h3 {
@@ -17,6 +24,11 @@
   font-family: "Poppins", sans-serif;
   padding-left: 2rem;
   padding-top: 2rem;
+  transition: color 0.3s ease;
+}
+
+.my-investment-card:hover h3 {
+  color: #7392f9;
 }
 
 .my-investment-card p {
@@ -24,6 +36,11 @@
   color: #9c9c9c;
   font-family: "Poppins", sans-serif;
   padding-left: 2rem;
+  transition: color 0.3s ease;
+}
+
+.my-investment-card:hover p {
+  color: #6c6c6c;
 }
 
 .number-ball {
@@ -42,6 +59,14 @@
   font-size: 1.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border: 1px solid black;
+  transition: all 0.3s ease;
+}
+
+.my-investment-card:hover .number-ball {
+  background-color: #7392f9;
+  border-color: white;
+  color: white;
+  transform: scale(1.05);
 }
 
 .main-data-div {

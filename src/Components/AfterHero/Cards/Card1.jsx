@@ -1,5 +1,9 @@
 import "./Cards1.css";
+import "./investmentPlans";
+import { investmentPlans } from "./investmentPlans";
 export default function Card1(props) {
+  const planName = props.name.toLowerCase();
+  const planData = investmentPlans[planName];
   return (
     <div className="everycard">
       <div className="card" id="card">
@@ -7,7 +11,7 @@ export default function Card1(props) {
           <h5 className="card-title" id="card-title1">
             {props.name}
           </h5>
-          <div>
+          <div id="text-inside">
             <p className="card-text" id="card-text1">
               {props.p1}
             </p>
@@ -24,27 +28,27 @@ export default function Card1(props) {
           <ul id="list1">
             <li>
               <span>Investment Amount:</span>
-              <strong>$100</strong>
+              <strong>{planData.investmentAmount}</strong>
             </li>
             <li>
               <span>Daily Return (1%):</span>
-              <strong>$1</strong>
+              <strong>{planData.dailyReturn}</strong>
             </li>
             <li>
               <span>Weekly Income:</span>
-              <strong>$10</strong>
+              <strong>{planData.weeklyIncome}</strong>
             </li>
             <li>
-              <span>Monthly Income:</span>
-              <strong>$30</strong>
+              <span>Weeks:</span>
+              <strong>{planData.monthlyIncome}</strong>
             </li>
             <li>
-              <span>Duration Flexibility:</span>
-              <strong>No lock-in</strong>
+              <span>Months:</span>
+              <strong>{planData.duration}</strong>
             </li>
             <li>
-              <span>Referral Bonus:</span>
-              <strong>20%</strong>
+              <span></span>
+              <strong></strong>
             </li>
           </ul>
         </div>
