@@ -1,73 +1,43 @@
-import anialmgAg from "../../../Assets/icon.png";
-import "./RegisterModal.css";
+import React from 'react';
+import './RegisterModal.css';
+import LoginFrame from "../../../Assets/LoginFrame.svg"
 
-export default function RegisterModal(props) {
+const RegisterModal = () => {
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        <div className="modal-content">
-          <div className="modal-header">
-            <img src={anialmgAg} alt="SeaShell Logo" />
-            <button className="close-btn" onClick={props.onClose}>
-              X
-            </button>
-          </div>
-          <div className="title">
-            <p id="signup-title">Sign Up</p>
-          </div>
-          <div className="subtitle">
-            <p>Build Your Future, One Click at a Time</p>
-          </div>
-          <div className="form-container">
-            <div className="input-group">
-              <label htmlFor="email-phone">Email, Phone</label>
-              <input
-                type="text"
-                id="email-phone"
-                placeholder="Enter your email or phone number"
-              />
+    <div className="signup-container">
+      <div className="signup-left">
+        <div className="signup-form-box">
+          <h2>Sign Up</h2>
+          <p>Build Your Future, One Click at a Time</p>
+          <form>
+            <label>Email, Phone</label>
+            <input type="text" placeholder="Enter your email or phone number" />
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter your password" />
+
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Enter to confirm password" />
+
+            <label>Payment Screenshot</label>
+            <div className="file-upload-box">
+              <input type="file" id="payment" />
+              <button type="button">Upload file</button>
             </div>
 
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <input
-                type="password"
-                id="confirm-password"
-                placeholder="Enter to confirm password"
-              />
-            </div>
-            <div className="forgot-password">
-              <a href="2">Forgot Password?</a>
-            </div>
-            <div className="submit-btn-container">
-              <button className="submit-btn">Sign Up</button>
-            </div>
-            <div className="switch-auth">
-              <p>
-                Already have account?{" "}
-                <a
-                  href="1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    props.onSwitchToLogin();
-                  }}
-                >
-                  Login
-                </a>
-              </p>
-            </div>
-          </div>
+            <button type="submit" className="signup-btn">Sign Up</button>
+          </form>
+          <p className="login-link">Already have account? <a href="#">Login</a></p>
         </div>
+      </div>
+      <div className="signup-right">
+        <img
+          src= {LoginFrame}
+          alt="signup illustration"
+        />
       </div>
     </div>
   );
-}
+};
+
+export default RegisterModal;
