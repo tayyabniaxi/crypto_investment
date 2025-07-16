@@ -40,10 +40,31 @@ export default function Navbar() {
           className={`menu-links-container ${isMenuOpen ? "menu-visible" : ""}`}
         >
           <ul className="menu-links">
-            <li className="menu-item"><a className="menu-link active" href="#">Home</a></li>
-            <li className="menu-item"><a className="menu-link" href="#">Plans</a></li>
-            <li className="menu-item"><a className="menu-link" href="#">Reviews</a></li>
-            <li className="menu-item"><a className="menu-link" href="#">Contact</a></li>
+            <li className="menu-item">
+              <a className="menu-link active" href="#">
+                Home
+              </a>
+            </li>
+            <li className="menu-item">
+              <a className="menu-link" href="#FAQs">
+                FAQs
+              </a>
+            </li>
+            <li className="menu-item">
+              <a className="menu-link" href="#Plans">
+                Plans
+              </a>
+            </li>
+            <li className="menu-item">
+              <a className="menu-link" href="#Reviews">
+                Reviews
+              </a>
+            </li>
+            <li className="menu-item">
+              <a className="menu-link" href="#Conatacts">
+                Contact
+              </a>
+            </li>
             <li className="menu-item mobile-login-item">
               <button className="login-button mobile-login-button" onClick={handleLoginClick}>
                 Login

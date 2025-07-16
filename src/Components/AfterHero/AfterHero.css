@@ -1,14 +1,14 @@
 .main-div-afterHero {
   background: linear-gradient(to bottom, #f5faff, #ffffff);
   width: 100vw;
-  height: 1526px;
+  height: 2126px;
   display: flex;
   justify-content: center;
 }
 
 .all-data-inside {
-  width: 1487px;
-  height: 724px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,9 +50,10 @@
 .cardsInside {
   margin-top: 57px;
   display: flex;
-  height: 600px;
+  height: 1100px;
   width: 1487px;
-  gap: 30px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .Second-cardsInside {
@@ -62,6 +63,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.remainng-cards {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  gap: 30px;
 }
 
 @media screen and (max-width: 1000px) {

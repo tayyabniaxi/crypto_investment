@@ -6,7 +6,7 @@
   height: auto;
   padding: 20px 0;
 }
-#id1{
+#id1 {
   border-bottom: 1px solid rgb(255, 255, 255);
 }
 
@@ -16,7 +16,7 @@
   align-items: center;
   width: 100%;
   max-width: 1368px;
-  height: 983px;
+  height: 1100px;
   padding: 0 15px;
   box-sizing: border-box;
 }
@@ -25,7 +25,7 @@
   width: auto;
   max-width: 200px;
   height: auto;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 32px;
@@ -44,17 +44,16 @@
   padding: 0 10px;
 }
 
-
 @media only screen and (max-width: 375px) {
   .Final-Part {
     padding: 15px 0;
   }
-  
+
   .main-heading1-final {
     font-size: 28px;
     margin-bottom: 15px;
   }
-  
+
   .final-part-FAQs,
   .main-faq-part {
     padding: 0 8px;

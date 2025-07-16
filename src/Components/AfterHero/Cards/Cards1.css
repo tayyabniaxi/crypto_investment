@@ -1,6 +1,11 @@
 .everycard {
   width: 350px;
   height: 530px;
+  transition: transform 0.3s ease;
+}
+
+.everycard:hover {
+  transform: translateY(-5px);
 }
 
 #card {
@@ -15,6 +20,16 @@
   background-color: white;
   padding: 0;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+#card:hover {
+  box-shadow: -6px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#card:active {
+  transform: scale(0.98);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-upper-body {
@@ -28,6 +43,11 @@
   background-color: #f2f2f2;
   padding: 0;
   border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+#card:hover .card-upper-body {
+  background-color: #e8e8e8;
 }
 
 #card-title1 {
@@ -36,6 +56,11 @@
   font-size: 26px;
   font-weight: 600;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+#card:hover #card-title1 {
+  color: #5a7df5;
 }
 
 #card-text1 {
@@ -44,6 +69,12 @@
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 5px;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+#card:hover #card-text1 {
+  color: #333333;
 }
 
 #card-text2 {
@@ -54,6 +85,12 @@
   font-family: "Poppins", sans-serif;
   text-align: center;
   margin-bottom: 15px;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+#card:hover #card-text2 {
+  color: #6b6b6b;
 }
 
 #button {
@@ -67,17 +104,27 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 #button:hover {
   background-color: #5a7df5;
+  transform: translateY(-2px);
+}
+
+#button:active {
+  transform: scale(0.96);
 }
 
 #main-list {
   width: 292px;
   padding: 20px 10px;
   margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+#card:hover #main-list {
+  transform: translateY(2px);
 }
 
 #list1 {
@@ -91,19 +138,42 @@
 
 #list1 li {
   display: grid;
+  margin-top: 10px;
   grid-template-columns: 170px auto;
   align-items: center;
-  font-size: 16px;
-  font-family: "Poppins", Arial, sans-serif;
+  font-weight: 400;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 18px;
   color: #8b8a8a;
+  transition: all 0.3s ease;
+}
+
+#card:hover #list1 li {
+  color: #777777;
 }
 
 #list1 li strong {
   color: black;
   justify-self: start;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+#card:hover #list1 li strong {
+  color: #333333;
 }
 
 #list1 li span {
   font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+#card:hover #list1 li span {
+  color: #666666;
+}
+
+#text-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

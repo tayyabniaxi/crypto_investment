@@ -6,7 +6,9 @@ export default function Last() {
     <div className="Last-1">
       <div className="inside-last1">
         <div className="picture-here">
-          <img src={myImg1} alt="hello" id="img124" />
+          <a href="">
+            <img src={myImg1} alt="hello" id="img124" />
+          </a>
         </div>
         <div className="main-text">
           <p>Ready to Start Earning?</p>

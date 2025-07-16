@@ -11,7 +11,7 @@ export default function AfterHero() {
     <div className="main-div-afterHero">
       <div className="all-data-inside">
         <div className="main-heading1">
-          <p>Investment Plan</p>
+          <p id="Plans">Investment Plan</p>
         </div>
 
         <div className="sub-heading1">
@@ -33,15 +33,27 @@ export default function AfterHero() {
             p2="Step up your earnings with consistent daily profits."
           />
           <Card1
-            name="Gold Plan"
+            name="Gold"
             p1="Shine with Bigger Profits."
             p2="Reliable returns with serious momentum."
           />
           <Card1
-            name="Platinum Plan"
+            name="Platinum"
             p1="Earn Like a King."
             p2="For those who play big and win big."
           />
+          <div className="remainng-cards">
+            <Card1
+              name="Diamond"
+              p1="Diamond Investment Plan"
+              p2="Where your money shines as bright as your future."
+            />
+            <Card1
+              name="Elite"
+              p1="Elite Investment Plan"
+              p2="Invest like a pro with elite tools insights, and returns."
+            />
+          </div>
         </div>
 
         <div className="Second-cardsInside">
@@ -58,17 +70,20 @@ export default function AfterHero() {
             <Card2
               img={pic2}
               para1="Fixed Daily Income"
-              para2="No hidden fees. Know exactly what you earn and how you earn. Everything is clearly tracked and displayed."
+              para2="Enjoy a guaranteed 1% daily return on your investment without market risk or fluctuation."
             />
             <Card2
               img={pic3}
               para1="Real Time Dashboard Tracking"
-              para2="No hidden fees. Know exactly what you earn and how you earn. Everything is clearly tracked and displayed."
+              para2="Monitor your earnings, referrals, and withdrawals with a live, easy to-use dashboard anytime, anywhere."
             />
             <Card2
               img={pic4}
               para1="Trusted by Hundreds of Investors"
-              para2="No hidden fees. Know exactly what you earn and how you earn. Everything is clearly tracked and displayed."
+              para2="Our platform is backed by a
+strong and growing community
+who trust us for timely payouts
+and reliable service."
             />
           </div>
         </div>
