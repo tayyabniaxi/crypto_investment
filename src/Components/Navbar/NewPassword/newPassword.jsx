@@ -1,52 +1,40 @@
-import React, { useState } from "react";
-import logo from "../../../Assets/icon.png";
+import React from "react";
+import "./NewPassword.css";
+import LoginFrame from "../../../Assets/LoginFrame.svg";
+import Navbar from "../Navbar";
 
-export default function NewPasswordModal({ onClose }) {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleReset = () => {
-    if (newPassword !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    alert("Password reset successfully!");
-    onClose();
-  };
-
+const NewPassword = () => {
   return (
-    <div className="fp-modal-overlay">
-      <div className="fp-modal-container">
-        <div className="fp-modal-content">
-          <div className="fp-modal-header">
-            <img src={logo} alt="logo" />
-            <button onClick={onClose}>✕</button>
-          </div>
-
-          <div className="fp-modal-title">
+    <>
+      <Navbar />
+      <div className="new-password-container">
+        <div className="new-password-left">
+          <div className="form-box">
             <h2>Set New Password</h2>
-          </div>
-          <div className="fp-form-container">
-            <input
-              type="password"
-              placeholder="Enter New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="fp-form-input"
-            />
-            <input
-              type="password"
-              placeholder="Confirm New Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="fp-form-input"
-            />
-            <button onClick={handleReset} className="fp-submit-btn">
-              Reset Password
-            </button>
+            <p>Create a Strong New Password to Continue</p>
+
+            <form>
+              <div className="form-group">
+                <label>New Password</label>
+                <input type="password" placeholder="Enter your password" />
+              </div>
+
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm new password" />
+              </div>
+
+              <button type="submit">Save Password</button>
+            </form>
           </div>
         </div>
+
+        <div className="new-password-right">
+          <img src={LoginFrame} alt="illustration" />
+        </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default NewPassword;

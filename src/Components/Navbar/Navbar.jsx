@@ -1,41 +1,28 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logoImage from "../../Assets/icon.png";
 import "./Navbar.css";
-import LoginModal from "./Login-Modal/LoginModal";
-import RegisterModal from "./RegisterModal/RegisterModal";
-import ForgotPasswordModal from "./ForgotPassword/ForgotPassword";
-import OtpModal from "./OtpModal/otpModal";
-import NewPasswordModal from "./NewPassword/newPassword";
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
-  const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
-  const [recoveryValue, setRecoveryValue] = useState("");
-  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  function openLoginModal() {
-    setIsLoginModalOpen(true);
+  const handleLoginClick = () => {
+    navigate("/login");
     setIsMenuOpen(false);
-  }
+  };
 
-  function openRegisterModal() {
-    setIsRegisterModalOpen(true);
-    setIsLoginModalOpen(false);
-  }
-
-  function toggleMobileMenu() {
+  const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  }
+  };
 
   return (
     <div className="navbar-wrapper">
       <nav className="navbar-container">
-        <a className="navbar-logo-link" href="#">
+        <Link to="/" className="navbar-logo-link">
           <img src={logoImage} alt="SeaShell Logo" className="navbar-logo" />
-        </a>
+        </Link>
 
         <button
           className={`menu-toggle-btn ${isMenuOpen ? "active" : ""}`}
@@ -69,15 +56,11 @@ export default function Navbar() {
                 Reviews
               </a>
             </li>
-            <li className="menu-item">
-              <a className="menu-link" href="#Conatacts">
-                Contact
-              </a>
-            </li>
+            
             <li className="menu-item mobile-login-item">
               <button
                 className="login-button mobile-login-button"
-                onClick={openLoginModal}
+                onClick={handleLoginClick}
               >
                 Login
               </button>
@@ -86,61 +69,11 @@ export default function Navbar() {
         </div>
 
         <div className="login-button-wrapper">
-          <button className="login-button" onClick={openLoginModal}>
+          <button className="login-button" onClick={handleLoginClick}>
             Login
           </button>
         </div>
       </nav>
-
-      {}
-      {isLoginModalOpen && (
-        <LoginModal
-          onClose={() => setIsLoginModalOpen(false)}
-          onRegisterClick={() => {
-            setIsLoginModalOpen(false);
-            setIsRegisterModalOpen(true);
-          }}
-          onForgotPasswordClick={() => {
-            setIsLoginModalOpen(false);
-            setIsForgotPasswordOpen(true);
-          }}
-        />
-      )}
-      {isRegisterModalOpen && (
-        <RegisterModal
-          onClose={() => setIsRegisterModalOpen(false)}
-          onSwitchToLogin={() => {
-            setIsRegisterModalOpen(false);
-            setIsLoginModalOpen(true);
-          }}
-        />
-      )}
-      {isForgotPasswordOpen && (
-        <ForgotPasswordModal
-          onClose={() => setIsForgotPasswordOpen(false)}
-          onSwitchToOTP={(input) => {
-            setIsForgotPasswordOpen(false);
-            setRecoveryValue(input);
-            setIsOTPModalOpen(true);
-          }}
-        />
-      )}
-      {isOTPModalOpen && (
-        <OtpModal
-          onClose={() => setIsOTPModalOpen(false)}
-          onVerify={(otp) => {
-            if (otp.length === 6) {
-              setIsOTPModalOpen(false);
-              setIsResetModalOpen(true);
-            } else {
-              alert("Invalid OTP");
-            }
-          }}
-        />
-      )}
-      {isResetModalOpen && (
-        <NewPasswordModal onClose={() => setIsResetModalOpen(false)} />
-      )}
     </div>
   );
 }

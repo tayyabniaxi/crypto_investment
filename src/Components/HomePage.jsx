@@ -5,6 +5,8 @@ import Hero from './hero/Hero';
 import AfterHero from "./AfterHero/AfterHero";
 import Review from "./End/Review";
 import Final from "./Final/Final";
+
+
 export default function HomePage(){
     return(
         <div>

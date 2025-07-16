@@ -1,57 +1,50 @@
-import React, { useState } from "react";
-import animgAg from "../../../Assets/icon.png";
+import React from "react";
 import "./otpModal.css";
+import LoginFrame from "../../../Assets/LoginFrame.svg";
+import Navbar from "../Navbar";
+import { useNavigate } from "react-router-dom";
 
-export default function OtpModal(props) {
-  const [otp, setOtp] = useState("");
+const OtpModal = () => {
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onVerify(otp);
+  const handleVerify = () => {
+    navigate("/new-password");
   };
 
   return (
-    <div className="fp-modal-overlay">
-      <div className="fp-modal-container">
-        <div className="fp-modal-content">
-          <div className="fp-modal-header">
-            <img src={animgAg} alt="company-logo" className="fp-logo-img" />
-            <button className="fp-close-btn" onClick={props.onClose}>
-              ✕
-            </button>
-          </div>
-
-          <div className="fp-modal-title">
-            <h2 className="fp-subtitle-text">Enter OTP</h2>
-          </div>
-
-          <div className="fp-modal-subtitle">
-            <p className="fp-subtitle-text">
+    <>
+      <Navbar />
+      <div className="otp-container">
+        <div className="otp-left">
+          <div className="otp-box">
+            <h2 className="otp-title">Enter OTP</h2>
+            <p className="otp-subtitle">
               Enter the 6-Digit Code We Just Sent You
             </p>
-          </div>
 
-          <form onSubmit={handleSubmit} className="fp-form-container">
-            <div className="fp-input-group">
-              <input
-                type="text"
-                id="otp-input"
-                className="fp-form-input"
-                placeholder="Enter 6-digit OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                maxLength={6}
-                pattern="\d{6}"
-                required
-              />
+            <div className="otp-input-group">
+              {[...Array(6)].map((_, i) => (
+                <input
+                  key={i}
+                  type="text"
+                  maxLength="1"
+                  className="otp-input"
+                />
+              ))}
             </div>
 
-            <button type="submit" className="fp-submit-btn">
+            <button className="verify-btn" onClick={handleVerify}>
               Verify OTP
             </button>
-          </form>
+          </div>
+        </div>
+
+        <div className="otp-right">
+          <img src={LoginFrame} alt="OTP Illustration" className="otp-image" />
         </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default OtpModal;

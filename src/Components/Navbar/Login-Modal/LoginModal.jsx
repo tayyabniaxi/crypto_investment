@@ -1,72 +1,84 @@
-import React from "react";
-import animgAg from "../../../Assets/icon.png";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./LoginModal.css";
+import LoginFrame from "../../../Assets/LoginFrame.svg";
+import Navbar from "../Navbar";
 
-export default function LoginModal(props) {
+const LoginModal = () => {
+  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    if (!emailOrPhone.trim()) {
+      newErrors.emailOrPhone = "Email or phone is required";
+    }
+
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+  };
+
   return (
-    <div className="modal-overlay">
-      <div className="main-div-inside">
-        <div className="Modal-inside-data">
-          <div className="upper-sector">
-            <img src={animgAg} alt="an-image" />
-            <button onClick={props.onClose}>X</button>
-          </div>
-          <div className="headings">
-            <p id="one">Login to Account</p>
-          </div>
-          <div className="headings2">
-            <p>Welcome Back! Let’s Grow Your Income</p>
-          </div>
-          <div className="login-form-container">
-            <div className="input-group">
-              <label htmlFor="email">Email, Phone</label>
-              <input
-                type="text"
-                id="email"
-                placeholder="Enter your email or phone number"
-              />
-            </div>
+    <>
+      <Navbar />
+      <div className="login-container">
+        <div className="login-left">
+          <h2 className="login-title">Login to Account</h2>
+          <p className="login-subtitle">Welcome Back! Let's Grow Your Income</p>
 
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-              />
-            </div>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <label className="label-data">Email, Phone</label>
+            <input
+              type="text"
+              placeholder="Enter your email or phone number"
+              value={emailOrPhone}
+              onChange={(e) => setEmailOrPhone(e.target.value)}
+            />
+            {errors.emailOrPhone && (
+              <p className="error-message">{errors.emailOrPhone}</p>
+            )}
+
+            <label className="label-data">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && (
+              <p className="error-message">{errors.password}</p>
+            )}
 
             <div className="forgot-password">
-              <a
-                href="99"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.onForgotPasswordClick();
-                }}
-              >
-                Forgot Password?
-              </a>
+              <Link to="/forgot-password">Forgot Password?</Link>
             </div>
-            <div className="main-button-login">
-              <button>Login</button>
+
+            <button type="submit" className="login-buttonn">
+              Login
+            </button>
+
+            <div className="register-link">
+              Don't have an account? <Link to="/register">Register</Link>
             </div>
-            <div className="last1">
-              <p>
-                don’t have an account?
-                <a
-                  href="98"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    props.onRegisterClick();
-                  }}
-                >
-                  Register
-                </a>
-              </p>
-            </div>
-          </div>
+          </form>
+        </div>
+
+        <div className="login-right">
+          <img
+            src={LoginFrame}
+            alt="Login Illustration"
+            className="login-image"
+          />
         </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default LoginModal;
