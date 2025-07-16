@@ -1,12 +1,28 @@
-import './App.css';
-import HomePage from './Components/HomePage';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 
+import HomePage from "./Components/HomePage";
+import LoginModal from "./Components/Navbar/Login-Modal/LoginModal";
+import ForgetPassword from "./Components/Navbar/ForgotPassword/ForgotPassword.jsx";
+import RegisterModal from "./Components/Navbar/RegisterModal/RegisterModal.jsx";
+import OtpModal from "./Components/Navbar/OtpModal/OtpModal.jsx";
+import NewPassword from "./Components/Navbar/NewPassword/NewPassword.jsx";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage></HomePage>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginModal />} />
+          <Route path="/forgot-password" element={<ForgetPassword />} />
+          <Route path="/register" element={<RegisterModal />} />
+          <Route path="/otp" element={<OtpModal />} />
+          <Route path="/new-password" element={<NewPassword />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logoImage from "../../Assets/icon.png";
 import "./Navbar.css";
-import LoginModal from "./Login-Modal/LoginModal"; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const [showLoginPage, setShowLoginPage] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    setShowLoginPage(true);
+    navigate("/login");
     setIsMenuOpen(false);
   };
 
@@ -17,16 +17,12 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if (showLoginPage) {
-    return <LoginModal onBack={() => setShowLoginPage(false)} />;
-  }
-
   return (
     <div className="navbar-wrapper">
       <nav className="navbar-container">
-        <a className="navbar-logo-link" href="#">
+        <Link to="/" className="navbar-logo-link">
           <img src={logoImage} alt="SeaShell Logo" className="navbar-logo" />
-        </a>
+        </Link>
 
         <button
           className={`menu-toggle-btn ${isMenuOpen ? "active" : ""}`}
@@ -60,13 +56,12 @@ export default function Navbar() {
                 Reviews
               </a>
             </li>
-            <li className="menu-item">
-              <a className="menu-link" href="#Conatacts">
-                Contact
-              </a>
-            </li>
+            
             <li className="menu-item mobile-login-item">
-              <button className="login-button mobile-login-button" onClick={handleLoginClick}>
+              <button
+                className="login-button mobile-login-button"
+                onClick={handleLoginClick}
+              >
                 Login
               </button>
             </li>

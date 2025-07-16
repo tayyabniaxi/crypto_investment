@@ -1,30 +1,39 @@
-import React from 'react';
-import './NewPassword.css';
-import LoginFrame from "../../../Assets/LoginFrame.svg"
+import React from "react";
+import "./NewPassword.css";
+import LoginFrame from "../../../Assets/LoginFrame.svg";
+import Navbar from "../Navbar";
 
 const NewPassword = () => {
   return (
-    <div className="new-password-container">
-      <div className="new-password-left">
-        <div className="form-box">
-          <h2>Set New Password</h2>
-          <p>Create a Strong New Password to Continue</p>
-          <form>
-            <label>New Password</label>
-            <input type="password" placeholder="Enter your password" />
-            <label>Confirm Password</label>
-            <input type="password" placeholder="Confirm New password" />
-            <button type="submit">Save Password</button>
-          </form>
+    <>
+      <Navbar />
+      <div className="new-password-container">
+        <div className="new-password-left">
+          <div className="form-box">
+            <h2>Set New Password</h2>
+            <p>Create a Strong New Password to Continue</p>
+
+            <form>
+              <div className="form-group">
+                <label>New Password</label>
+                <input type="password" placeholder="Enter your password" />
+              </div>
+
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm new password" />
+              </div>
+
+              <button type="submit">Save Password</button>
+            </form>
+          </div>
+        </div>
+
+        <div className="new-password-right">
+          <img src={LoginFrame} alt="illustration" />
         </div>
       </div>
-      <div className="new-password-right">
-        <img
-          src= {LoginFrame}
-          alt="illustration"
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
