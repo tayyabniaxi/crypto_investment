@@ -6,8 +6,10 @@ import HomePage from "./Components/HomePage";
 import LoginModal from "./Components/Navbar/Login-Modal/LoginModal";
 import ForgetPassword from "./Components/Navbar/ForgotPassword/ForgotPassword.jsx";
 import RegisterModal from "./Components/Navbar/RegisterModal/RegisterModal.jsx";
-import OtpModal from "./Components/Navbar/OtpModal/OtpModal.jsx";
+// import OtpModal from "./Components/Navbar/OtpModal/OtpModal.jsx";
 import NewPassword from "./Components/Navbar/NewPassword/NewPassword.jsx";
+import Dashboard from "./Components/dashboard/dashboard.jsx";
+import AdminPanel from "./Components/Admin/AdminPanel.jsx"; // Add Admin import
 
 function App() {
   return (
@@ -18,8 +20,11 @@ function App() {
           <Route path="/login" element={<LoginModal />} />
           <Route path="/forgot-password" element={<ForgetPassword />} />
           <Route path="/register" element={<RegisterModal />} />
-          <Route path="/otp" element={<OtpModal />} />
+          {/* <Route path="/otp" element={<OtpModal />} /> */}
           <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/admin" element={<AdminPanel />} />
+
         </Routes>
       </div>
     </Router>

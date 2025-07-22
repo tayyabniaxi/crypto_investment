@@ -1,9 +1,17 @@
 import "./Cards1.css";
 import "./investmentPlans";
 import { investmentPlans } from "./investmentPlans";
+import { useNavigate } from "react-router-dom";
+
 export default function Card1(props) {
+  const navigate = useNavigate();
   const planName = props.name.toLowerCase();
   const planData = investmentPlans[planName];
+
+  const handlePlanSelection = () => {
+    navigate(`/register?plan=${planName}`);
+  };
+
   return (
     <div className="everycard">
       <div className="card" id="card">
@@ -20,7 +28,9 @@ export default function Card1(props) {
             </p>
           </div>
           <div>
-            <button id="button">Choose Plane</button>
+            <button id="button" onClick={handlePlanSelection}>
+              Choose Plan
+            </button>
           </div>
         </div>
 

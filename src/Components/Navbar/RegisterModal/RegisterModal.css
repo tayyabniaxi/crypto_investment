@@ -60,6 +60,115 @@
   overflow: hidden;
 }
 
+/* Success Modal Styles - Add to RegisterModal.css */
+
+.success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.success-modal {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalShow 0.3s ease-out;
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.success-icon {
+  font-size: 60px;
+  color: #28a745;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.success-modal h3 {
+  color: #28a745;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.success-modal p {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.success-modal-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.success-modal-btn:hover {
+  background-color: #218838;
+}
+/* Add to RegisterModal.css */
+
+.selected-plan-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.selected-plan-display h4 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+.plan-name {
+  color: #ffd700;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.plan-details {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.plan-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
 .file-input-wrapper input[type="file"] {
   flex: 1;
   padding: 8px;
