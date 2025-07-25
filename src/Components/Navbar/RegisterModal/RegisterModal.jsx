@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterModal.css";
 import LoginFrame from "../../../Assets/LoginFrame.svg";
+import UploadScreenshot from "../../../Assets/Upload-Screenshot.svg"
 import Navbar from "../Navbar";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { investmentPlans } from "../../AfterHero/Cards/investmentPlans";
@@ -190,9 +191,19 @@ const RegisterModal = () => {
           </div>
         </div>
 
-        <div className="signup-right">
-          <img src={LoginFrame} alt="signup illustration" />
-        </div>
+     <div className="signup-right">
+  <div className="upload-instructions">
+    <h3>
+      <span className="note-red">Note !</span> Upload Your Payment Screenshot :
+    </h3>
+    <p>
+      Upload your payment screenshot in given input field, then we will verify your payment.
+    </p>
+ <img src={UploadScreenshot} alt="Upload Illustration" className="upload-illustration" />
+
+  </div>
+</div>
+
       </div>
 
       {showSuccessModal && (

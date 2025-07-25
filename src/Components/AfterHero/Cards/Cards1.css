@@ -1,133 +1,132 @@
 .everycard {
-  width: 350px;
-  height: 530px;
+  width: 100%;
+  height: auto;
   transition: transform 0.3s ease;
+  margin: auto;
 }
 
 .everycard:hover {
   transform: translateY(-5px);
 }
 
-#card {
-  width: 350px;
-  height: 530px;
-  border: 0 solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.card {
+  width: 100%;
+  max-width: 550px;
+  height: 100%;
   border-radius: 20px;
   box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.1);
   background-color: white;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
   transition: all 0.3s ease;
 }
 
-#card:hover {
+.card:hover {
   box-shadow: -6px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-#card:active {
+.card:active {
   transform: scale(0.98);
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-upper-body {
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 330px;
-  height: 250px;
+  width: 90%;
   background-color: #f2f2f2;
-  padding: 0;
   border-radius: 10px;
+  padding: 20px;
+  text-align: center;
   transition: all 0.3s ease;
 }
 
-#card:hover .card-upper-body {
+.card:hover .card-upper-body {
   background-color: #e8e8e8;
 }
 
-#card-title1 {
+.card-title {
   color: #7392f9;
   font-family: "Poppins", sans-serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 600;
-  margin: 0;
+  margin-bottom: 10px;
   transition: color 0.3s ease;
 }
 
-#card:hover #card-title1 {
+.card:hover .card-title {
   color: #5a7df5;
 }
 
-#card-text1 {
-  color: #000000;
+.text-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-text1 {
+  color: #000;
   font-family: "Poppins", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
-  transition: color 0.3s ease;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
-#card:hover #card-text1 {
-  color: #333333;
+.card:hover .card-text1 {
+  color: #333;
 }
 
-#card-text2 {
+.card-text2 {
   color: #858484;
-  width: 237px;
-  height: 40px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: "Poppins", sans-serif;
   text-align: center;
-  margin-bottom: 15px;
   transition: color 0.3s ease;
-  text-align: center;
 }
 
-#card:hover #card-text2 {
+.card:hover .card-text2 {
   color: #6b6b6b;
 }
 
-#button {
+.card-button {
   background-color: #7392f9;
   color: white;
   font-family: "Poppins", sans-serif;
-  width: 310px;
-  height: 50px;
+  width: 100%;
+  max-width: 310px;
+  height: 45px;
   border-radius: 20px;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-#button:hover {
+.card-button:hover {
   background-color: #5a7df5;
   transform: translateY(-2px);
 }
 
-#button:active {
+.card-button:active {
   transform: scale(0.96);
 }
 
-#main-list {
-  width: 292px;
-  padding: 20px 10px;
+.main-list {
+  width: 90%;
   margin-top: 20px;
   transition: all 0.3s ease;
 }
 
-#card:hover #main-list {
+.card:hover .main-list {
   transform: translateY(2px);
 }
 
-#list1 {
+.list1 {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -136,44 +135,27 @@
   gap: 8px;
 }
 
-#list1 li {
-  display: grid;
-  margin-top: 10px;
-  grid-template-columns: 170px auto;
-  align-items: center;
-  font-weight: 400;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 18px;
-  color: #8b8a8a;
-  transition: all 0.3s ease;
-}
-
-#card:hover #list1 li {
-  color: #777777;
-}
-
-#list1 li strong {
-  color: black;
-  justify-self: start;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-#card:hover #list1 li strong {
-  color: #333333;
-}
-
-#list1 li span {
-  font-weight: 400;
-  transition: color 0.3s ease;
-}
-
-#card:hover #list1 li span {
-  color: #666666;
-}
-
-#text-inside {
+.list1 li {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #8b8a8a;
+}
+
+.card:hover .list1 li {
+  color: #777;
+}
+
+.list1 li strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.card:hover .list1 li strong {
+  color: #333;
+}
+
+.list1 li span {
+  font-weight: 400;
 }

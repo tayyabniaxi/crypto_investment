@@ -42,18 +42,16 @@ export default function AfterHero() {
             p1="Earn Like a King."
             p2="For those who play big and win big."
           />
-          <div className="remainng-cards">
-            <Card1
-              name="Diamond"
-              p1="Diamond Investment Plan"
-              p2="Where your money shines as bright as your future."
-            />
-            <Card1
-              name="Elite"
-              p1="Elite Investment Plan"
-              p2="Invest like a pro with elite tools insights, and returns."
-            />
-          </div>
+          <Card1
+            name="Diamond"
+            p1="Diamond Investment Plan"
+            p2="Where your money shines as bright as your future."
+          />
+          <Card1
+            name="Elite"
+            p1="Elite Investment Plan"
+            p2="Invest like a pro with elite tools, insights, and returns."
+          />
         </div>
 
         <div className="Second-cardsInside">
@@ -61,7 +59,7 @@ export default function AfterHero() {
             <p>Why Choose Us</p>
           </div>
 
-          <div className="cardsInside">
+          <div className="card2-grid-wrapper">
             <Card2
               img={pic1}
               para1="Transparent profit system"
@@ -75,15 +73,12 @@ export default function AfterHero() {
             <Card2
               img={pic3}
               para1="Real Time Dashboard Tracking"
-              para2="Monitor your earnings, referrals, and withdrawals with a live, easy to-use dashboard anytime, anywhere."
+              para2="Monitor your earnings, referrals, and withdrawals with a live, easy-to-use dashboard anytime, anywhere."
             />
             <Card2
               img={pic4}
               para1="Trusted by Hundreds of Investors"
-              para2="Our platform is backed by a
-strong and growing community
-who trust us for timely payouts
-and reliable service."
+              para2="Our platform is backed by a strong and growing community who trust us for timely payouts and reliable service."
             />
           </div>
         </div>
