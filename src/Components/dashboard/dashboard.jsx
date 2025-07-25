@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-import {API_BASE_URL} from '../../config/api';
+import { API_BASE_URL } from '../../config/api';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Overview');
@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [binanceWallet, setBinanceWallet] = useState('');
-  
+
   const [referralData, setReferralData] = useState({
     referralCode: '',
     totalReferrals: 0,
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     initializeDashboard();
-    
+
     const statusCheckInterval = setInterval(async () => {
       const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
       if (currentUser?.id) {
@@ -49,25 +49,25 @@ const Dashboard = () => {
 
     try {
       const parsedUser = JSON.parse(user);
-      
+
       if (parsedUser.isAdmin || parsedUser.role === 'admin') {
         alert('Admin users should use the admin panel. Redirecting...');
         navigate('/admin');
         return;
       }
-      
+
       if (parsedUser.role !== 'user') {
         localStorage.clear();
         alert('Invalid user type. Please login again.');
         navigate('/login');
         return;
       }
-      
+
       setUserData(parsedUser);
-      
+
       await refreshUserData(parsedUser.id);
       await loadDashboardData(parsedUser.id);
-      
+
       setLoading(false);
     } catch (error) {
       localStorage.clear();
@@ -91,7 +91,7 @@ const Dashboard = () => {
           const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
           const oldStatus = currentUser?.verificationStatus;
           const newStatus = data.data.verificationStatus;
-          
+
           const updatedUser = {
             id: data.data.userId,
             email: data.data.email,
@@ -102,10 +102,10 @@ const Dashboard = () => {
             verificationStatus: newStatus || 'pending',
             isVerified: data.data.isVerified || false
           };
-          
+
           localStorage.setItem('user', JSON.stringify(updatedUser));
           setUserData(updatedUser);
-          
+
           if (oldStatus && oldStatus !== newStatus) {
             if (newStatus === 'approved') {
               alert('🎉 Congratulations! Your account has been approved by admin. You can now access all features!');
@@ -117,7 +117,6 @@ const Dashboard = () => {
         }
       }
     } catch (error) {
-      // Silent error handling
     }
   };
 
@@ -126,14 +125,13 @@ const Dashboard = () => {
       await loadReferralData(userId);
       await loadWithdrawalData(userId);
     } catch (error) {
-      // Silent error handling
     }
   };
 
   const loadReferralData = async (userId) => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-      
+
       if (currentUser?.verificationStatus !== 'approved') {
         setReferralData({
           referralCode: '',
@@ -195,7 +193,7 @@ const Dashboard = () => {
 
   const generateReferralCode = async (userId) => {
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-    
+
     if (currentUser?.verificationStatus !== 'approved') {
       return;
     }
@@ -229,9 +227,8 @@ const Dashboard = () => {
         });
       }
     } catch (error) {
-      // Silent error handling
     }
-    
+
     return null;
   };
 
@@ -267,7 +264,6 @@ const Dashboard = () => {
         }
       }
     } catch (error) {
-      // Silent error handling
     }
   };
 
@@ -324,7 +320,7 @@ const Dashboard = () => {
     }
 
     const availableBalance = parseFloat(withdrawalStats.availableBalance.replace('$', '')) || 0;
-    
+
     if (availableBalance < 30) {
       alert(`Minimum balance of $30 required for withdrawal. Available: ${withdrawalStats.availableBalance}`);
       return;
@@ -385,25 +381,25 @@ const Dashboard = () => {
           <p className="stat-value">{planName.charAt(0).toUpperCase() + planName.slice(1)}</p>
           <small>Investment Plan</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Investment Amount</h3>
           <p className="stat-value">{userPlan?.investmentAmount || '$0'}</p>
           <small>Total Invested</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Daily Return</h3>
           <p className="stat-value">{dailyReturn}</p>
           <small>1% Daily</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Weekly Income</h3>
           <p className="stat-value">{userPlan?.weeklyIncome || '$0'}</p>
           <small>Expected Weekly</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Total Earned</h3>
           <p className="stat-value">
@@ -411,7 +407,7 @@ const Dashboard = () => {
           </p>
           <small>Investment Earnings</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Referral Earnings</h3>
           <p className="stat-value">
@@ -419,7 +415,7 @@ const Dashboard = () => {
           </p>
           <small>Commission Earned</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Available Balance</h3>
           <p className="stat-value">
@@ -427,17 +423,17 @@ const Dashboard = () => {
           </p>
           <small>Ready to Withdraw</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Status</h3>
           <p className="stat-value">
-            {userData?.verificationStatus === 'approved' ? 'Approved' : 
-             userData?.verificationStatus === 'pending' ? 'Pending' : 
-             userData?.verificationStatus === 'rejected' ? 'Rejected' : 'Unknown'}
+            {userData?.verificationStatus === 'approved' ? 'Approved' :
+              userData?.verificationStatus === 'pending' ? 'Pending' :
+                userData?.verificationStatus === 'rejected' ? 'Rejected' : 'Unknown'}
           </p>
           <small>Account Status</small>
         </div>
-        
+
         <div className="stat-card">
           <h3>Plan Status</h3>
           <p className="stat-value">
@@ -483,7 +479,7 @@ const Dashboard = () => {
             <h3>Referral Features Locked</h3>
             <p>Referral links and commissions are only available for approved accounts.</p>
             <div className="status-notice">
-              {userData?.verificationStatus === 'pending' ? 
+              {userData?.verificationStatus === 'pending' ?
                 '⏳ Your account is pending admin approval' :
                 '❌ Account verification required'
               }
@@ -498,8 +494,8 @@ const Dashboard = () => {
         <div className="referral-header">
           <h3>Share Your Link</h3>
           <div className="referral-link-container">
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={referralData.referralLink || `${window.location.origin}/register?ref=${referralData.referralCode}`}
               readOnly
               className="referral-input"
@@ -561,7 +557,7 @@ const Dashboard = () => {
             <h3>Withdrawal Features Locked</h3>
             <p>Withdrawal requests are only available for approved accounts.</p>
             <div className="status-notice">
-              {userData?.verificationStatus === 'pending' ? 
+              {userData?.verificationStatus === 'pending' ?
                 '⏳ Your account is pending admin approval' :
                 '❌ Account verification required'
               }
@@ -578,8 +574,8 @@ const Dashboard = () => {
           <div className="withdraw-form">
             <div className="form-group">
               <label>Amount to Withdraw</label>
-              <input 
-                type="number" 
+              <input
+                type="number"
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(e.target.value)}
                 placeholder={isWithdrawalAvailable() ? "Enter amount (Min: $30)" : "Insufficient balance"}
@@ -597,8 +593,8 @@ const Dashboard = () => {
             </div>
             <div className="form-group">
               <label>Binance Wallet Address</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={binanceWallet}
                 onChange={(e) => setBinanceWallet(e.target.value)}
                 placeholder={isWithdrawalAvailable() ? "Enter your Binance wallet address" : "Available after reaching $30 balance"}
@@ -618,20 +614,20 @@ const Dashboard = () => {
                     <strong>Withdrawal Requirements</strong>
                   </div>
                   <div className="requirements-text">
-                    • Minimum balance: $30.00<br/>
-                    • Current balance: {withdrawalStats.availableBalance}<br/>
+                    • Minimum balance: $30.00<br />
+                    • Current balance: {withdrawalStats.availableBalance}<br />
                     • Need: ${Math.max(0, 30 - getAvailableBalance()).toFixed(2)} more
                   </div>
                 </div>
               )}
             </div>
-            <button 
-              onClick={handleWithdrawRequest} 
+            <button
+              onClick={handleWithdrawRequest}
               className={`withdraw-btn ${!isWithdrawalAvailable() ? 'disabled' : ''}`}
               disabled={!isWithdrawalAvailable()}
             >
-              {!isWithdrawalAvailable() ? 
-                (getAvailableBalance() < 30 ? 'Insufficient Balance' : 'Account Not Approved') : 
+              {!isWithdrawalAvailable() ?
+                (getAvailableBalance() < 30 ? 'Insufficient Balance' : 'Account Not Approved') :
                 'Request Withdrawal'
               }
             </button>
@@ -702,12 +698,12 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              
+
               <button className="logout-btn" onClick={handleLogout}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                  <polyline points="16,17 21,12 16,7"/>
-                  <line x1="21" y1="12" x2="9" y2="12"/>
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16,17 21,12 16,7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
                 Logout
               </button>
@@ -722,10 +718,10 @@ const Dashboard = () => {
                       className={`nav-button ${activeTab === tab ? 'active' : ''}`}
                     >
                       <svg className="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        {tab === 'Overview' && <><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></>}
-                        {tab === 'History' && <><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></>}
-                        {tab === 'Referral' && <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></>}
-                        {tab === 'Withdraw' && <><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><line x1="9" y1="9" x2="9" y2="9"/></>}
+                        {tab === 'Overview' && <><path d="M3 3v18h18" /><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" /></>}
+                        {tab === 'History' && <><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></>}
+                        {tab === 'Referral' && <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /></>}
+                        {tab === 'Withdraw' && <><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><line x1="9" y1="9" x2="9" y2="9" /></>}
                       </svg>
                       {tab}
                     </button>
@@ -741,7 +737,7 @@ const Dashboard = () => {
                 <div className="logo">S</div>
                 <h1 className="app-title">SEASHELL</h1>
               </div>
-              
+
               <div className="page-info">
                 <h2 className="page-title">{activeTab}</h2>
                 <p className="page-subtitle">
@@ -753,7 +749,7 @@ const Dashboard = () => {
                 {userData?.verificationStatus === 'pending' && (
                   <div className="status-alert pending">
                     ⏳ Account Pending Approval - Some features may be limited
-                    <button 
+                    <button
                       onClick={() => {
                         const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
                         if (currentUser?.id) {

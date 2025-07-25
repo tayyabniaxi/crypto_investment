@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminPanel.css';
-import {API_BASE_URL} from '../../config/api';
+import { API_BASE_URL } from '../../config/api';
 const AdminPanel = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [loading, setLoading] = useState(false);
-  
-  // States for admin data
+
   const [adminStats, setAdminStats] = useState({});
   const [pendingUsers, setPendingUsers] = useState([]);
   const [withdrawalRequests, setWithdrawalRequests] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
-  // Modal states
+
   const [showUserModal, setShowUserModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
@@ -30,10 +28,9 @@ const AdminPanel = () => {
   }, [isAuthenticated, activeTab]);
 
   const checkAdminAuth = () => {
-    // Check both admin token and user data for admin role
     const adminToken = localStorage.getItem('adminToken') || localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    
+
     if (adminToken && userData) {
       try {
         const user = JSON.parse(userData);
@@ -45,8 +42,7 @@ const AdminPanel = () => {
         console.error('Error parsing user data:', error);
       }
     }
-    
-    // If not admin, redirect to login
+
     navigate('/login');
   };
 
@@ -66,7 +62,6 @@ const AdminPanel = () => {
     };
 
     try {
-      // Load dashboard stats
       if (activeTab === 'Dashboard') {
         const statsResponse = await fetch(`${API_BASE_URL}/admin/stats`, { headers });
         if (statsResponse.ok) {
@@ -79,7 +74,6 @@ const AdminPanel = () => {
         }
       }
 
-      // Load pending users
       if (activeTab === 'Users') {
         const usersResponse = await fetch(`${API_BASE_URL}/admin/pending-users`, { headers });
         if (usersResponse.ok) {
@@ -92,7 +86,6 @@ const AdminPanel = () => {
         }
       }
 
-      // Load withdrawal requests
       if (activeTab === 'Withdrawals') {
         const withdrawalsResponse = await fetch(`${API_BASE_URL}/admin/withdrawal-requests`, { headers });
         if (withdrawalsResponse.ok) {
@@ -107,7 +100,7 @@ const AdminPanel = () => {
     } catch (error) {
       console.error('Error loading admin data:', error);
       if (error.message.includes('Unauthorized')) {
-        handleLogout(); // Force logout on auth error
+        handleLogout();
       }
     }
   };
@@ -155,7 +148,7 @@ const AdminPanel = () => {
       if (response.ok && data.meta.status) {
         alert(`User ${action} successfully!`);
         closeModals();
-        loadAdminData(); // Reload data
+        loadAdminData();
       } else {
         alert(data.meta.message || 'Action failed');
       }
@@ -167,7 +160,7 @@ const AdminPanel = () => {
 
   const handleWithdrawalAction = async (withdrawalId, status) => {
     const adminNotes = status === 'rejected' ? prompt('Enter reason for rejection:') : '';
-    
+
     try {
       const token = localStorage.getItem('adminToken') || localStorage.getItem('token');
       const response = await fetch(`${API_BASE_URL}/admin/update-withdrawal-status`, {
@@ -188,7 +181,7 @@ const AdminPanel = () => {
       if (response.ok && data.meta.status) {
         alert(`Withdrawal ${status} successfully!`);
         closeModals();
-        loadAdminData(); // Reload data
+        loadAdminData();
       } else {
         alert(data.meta.message || 'Action failed');
       }
@@ -198,7 +191,6 @@ const AdminPanel = () => {
     }
   };
 
-  // User Details Modal Component
   const UserDetailsModal = () => {
     if (!showUserModal || !selectedUser) return null;
 
@@ -209,7 +201,7 @@ const AdminPanel = () => {
             <h3>User Registration Details</h3>
             <button className="close-btn" onClick={closeModals}>×</button>
           </div>
-          
+
           <div className="modal-body">
             <div className="user-details-grid">
               <div className="user-info-section">
@@ -247,9 +239,9 @@ const AdminPanel = () => {
               <h4>🖼️ Payment Screenshot</h4>
               {selectedUser.screenshot ? (
                 <div className="screenshot-container">
-                  <img 
-                    src={selectedUser.screenshot} 
-                    alt="Payment Screenshot" 
+                  <img
+                    src={selectedUser.screenshot}
+                    alt="Payment Screenshot"
                     className="payment-screenshot"
                     onClick={() => window.open(selectedUser.screenshot, '_blank')}
                   />
@@ -265,19 +257,19 @@ const AdminPanel = () => {
 
           <div className="modal-footer">
             <div className="action-buttons">
-              <button 
+              <button
                 onClick={() => handleUserAction(selectedUser.id, 'approved')}
                 className="approve-btn-modal"
               >
                 ✅ Approve User
               </button>
-              <button 
+              <button
                 onClick={() => handleUserAction(selectedUser.id, 'rejected')}
                 className="reject-btn-modal"
               >
                 ❌ Reject User
               </button>
-              <button 
+              <button
                 onClick={closeModals}
                 className="cancel-btn-modal"
               >
@@ -290,7 +282,6 @@ const AdminPanel = () => {
     );
   };
 
-  // Withdrawal Details Modal Component
   const WithdrawalDetailsModal = () => {
     if (!showWithdrawalModal || !selectedWithdrawal) return null;
 
@@ -301,7 +292,7 @@ const AdminPanel = () => {
             <h3>Withdrawal Request Details</h3>
             <button className="close-btn" onClick={closeModals}>×</button>
           </div>
-          
+
           <div className="modal-body">
             <div className="withdrawal-details-grid">
               <div className="withdrawal-info-section">
@@ -355,25 +346,25 @@ const AdminPanel = () => {
           <div className="modal-footer">
             {selectedWithdrawal.status === 'pending' && (
               <div className="action-buttons">
-                <button 
+                <button
                   onClick={() => handleWithdrawalAction(selectedWithdrawal.withdrawalId, 'approved')}
                   className="approve-btn-modal"
                 >
                   ✅ Approve
                 </button>
-                <button 
+                <button
                   onClick={() => handleWithdrawalAction(selectedWithdrawal.withdrawalId, 'completed')}
                   className="complete-btn-modal"
                 >
                   💳 Mark as Paid
                 </button>
-                <button 
+                <button
                   onClick={() => handleWithdrawalAction(selectedWithdrawal.withdrawalId, 'rejected')}
                   className="reject-btn-modal"
                 >
                   ❌ Reject
                 </button>
-                <button 
+                <button
                   onClick={closeModals}
                   className="cancel-btn-modal"
                 >
@@ -383,7 +374,7 @@ const AdminPanel = () => {
             )}
             {selectedWithdrawal.status !== 'pending' && (
               <div className="action-buttons">
-                <button 
+                <button
                   onClick={closeModals}
                   className="cancel-btn-modal"
                 >
@@ -399,10 +390,10 @@ const AdminPanel = () => {
 
   if (!isAuthenticated) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '100vh',
         flexDirection: 'column',
         gap: '20px'
@@ -422,7 +413,7 @@ const AdminPanel = () => {
             <h2>Admin Panel</h2>
             <button onClick={handleLogout} className="logout-btn">Logout</button>
           </div>
-          
+
           <nav className="admin-nav">
             {['Dashboard', 'Users', 'Withdrawals'].map((tab) => (
               <button
@@ -475,8 +466,8 @@ const AdminPanel = () => {
               <div className="users-table">
                 {pendingUsers.length > 0 ? (
                   pendingUsers.map((user) => (
-                    <div 
-                      key={user.id} 
+                    <div
+                      key={user.id}
                       className="user-card clickable-card"
                       onClick={() => handleUserClick(user)}
                     >
@@ -492,7 +483,7 @@ const AdminPanel = () => {
                         )}
                       </div>
                       <div className="user-actions">
-                        <button 
+                        <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleUserAction(user.id, 'approved');
@@ -501,7 +492,7 @@ const AdminPanel = () => {
                         >
                           Approve
                         </button>
-                        <button 
+                        <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleUserAction(user.id, 'rejected');
@@ -526,8 +517,8 @@ const AdminPanel = () => {
               <div className="withdrawals-table">
                 {withdrawalRequests.length > 0 ? (
                   withdrawalRequests.map((withdrawal) => (
-                    <div 
-                      key={withdrawal.id} 
+                    <div
+                      key={withdrawal.id}
                       className="withdrawal-card clickable-card"
                       onClick={() => handleWithdrawalClick(withdrawal)}
                     >
@@ -542,7 +533,7 @@ const AdminPanel = () => {
                       <div className="withdrawal-actions">
                         {withdrawal.status === 'pending' && (
                           <>
-                            <button 
+                            <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleWithdrawalAction(withdrawal.withdrawalId, 'approved');
@@ -551,7 +542,7 @@ const AdminPanel = () => {
                             >
                               Approve
                             </button>
-                            <button 
+                            <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleWithdrawalAction(withdrawal.withdrawalId, 'completed');
@@ -560,7 +551,7 @@ const AdminPanel = () => {
                             >
                               Mark as Paid
                             </button>
-                            <button 
+                            <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleWithdrawalAction(withdrawal.withdrawalId, 'rejected');
@@ -583,7 +574,6 @@ const AdminPanel = () => {
         </div>
       </div>
 
-      {/* Modals */}
       <UserDetailsModal />
       <WithdrawalDetailsModal />
     </>

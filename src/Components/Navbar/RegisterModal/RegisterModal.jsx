@@ -18,13 +18,11 @@ const RegisterModal = () => {
   const [errors, setErrors] = useState({});
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  // Get plan from URL parameter
   useEffect(() => {
     const planFromUrl = searchParams.get('plan');
     if (planFromUrl && investmentPlans[planFromUrl]) {
       setSelectedPlan(planFromUrl);
     } else {
-      // Redirect to homepage if no valid plan selected
       navigate('/');
     }
   }, [searchParams, navigate]);
@@ -107,7 +105,6 @@ const RegisterModal = () => {
             <h2>Sign Up</h2>
             <p>Build Your Future, One Click at a Time</p>
 
-            {/* Selected Plan Display */}
             {selectedPlanData && (
               <div className="selected-plan-display">
                 <h4>Selected Plan: <span className="plan-name">{selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</span></h4>

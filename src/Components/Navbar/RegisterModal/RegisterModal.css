@@ -60,7 +60,6 @@
   overflow: hidden;
 }
 
-/* Success Modal Styles - Add to RegisterModal.css */
 
 .success-modal-overlay {
   position: fixed;
@@ -132,7 +131,6 @@
 .success-modal-btn:hover {
   background-color: #218838;
 }
-/* Add to RegisterModal.css */
 
 .selected-plan-display {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

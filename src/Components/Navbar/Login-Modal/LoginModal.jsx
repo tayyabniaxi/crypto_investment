@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./LoginModal.css";
 import LoginFrame from "../../../Assets/LoginFrame.svg";
 import Navbar from "../Navbar";
-import {API_BASE_URL} from '../../../config/api';
+import { API_BASE_URL } from '../../../config/api';
 
 const LoginModal = () => {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ const LoginModal = () => {
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
 
-  // Check if user is already logged in
   useEffect(() => {
     const checkAuthentication = () => {
       const token = localStorage.getItem('token');
@@ -23,18 +22,15 @@ const LoginModal = () => {
       if (token && user) {
         try {
           const parsedUser = JSON.parse(user);
-          
-          // Check if user is admin (silently redirect)
+
           if (parsedUser.isAdmin || parsedUser.role === 'admin') {
             navigate('/admin');
             return;
           } else {
-            // Regular user
             navigate('/dashboard');
             return;
           }
         } catch (error) {
-          // If user data is corrupted, clear localStorage
           console.error('Corrupted user data, clearing localStorage');
           localStorage.removeItem('token');
           localStorage.removeItem('user');
@@ -65,7 +61,6 @@ const LoginModal = () => {
 
     if (Object.keys(newErrors).length === 0) {
       try {
-        // API call to unified login endpoint
         const response = await fetch(`${API_BASE_URL}/user/login`, {
           method: 'POST',
           headers: {
@@ -80,19 +75,14 @@ const LoginModal = () => {
         const data = await response.json();
 
         if (response.ok && data.meta.status) {
-          // Success - save token and user data
           if (data.data.token && data.data.user) {
             localStorage.setItem('token', data.data.token);
             localStorage.setItem('user', JSON.stringify(data.data.user));
 
-            // Check if user is admin (silent handling)
             if (data.data.user.isAdmin || data.data.user.role === 'admin') {
-              // Admin login - silent redirect
               localStorage.setItem('adminToken', data.data.token);
               navigate("/admin");
             } else {
-              // Regular user login
-              // Show appropriate message based on verification status
               if (data.data.user.verificationStatus === 'pending') {
                 alert('Login successful! Your account is pending admin approval. You can view your dashboard but some features may be limited.');
               } else if (data.data.user.verificationStatus === 'approved') {
@@ -100,7 +90,7 @@ const LoginModal = () => {
               } else {
                 alert('Login successful!');
               }
-              
+
               navigate("/dashboard");
             }
           } else {
@@ -110,7 +100,6 @@ const LoginModal = () => {
           }
 
         } else {
-          // Show API error
           setErrors({
             api: data.meta.message || 'Login failed. Please check your credentials.'
           });
@@ -129,13 +118,10 @@ const LoginModal = () => {
   const handleRegisterClick = (e) => {
     e.preventDefault();
 
-    // Show alert and redirect
     alert('Please select an investment plan first to register yourself.');
 
-    // Navigate to homepage plans section
     navigate("/#Plans");
 
-    // Scroll to plans section
     setTimeout(() => {
       const plansSection = document.getElementById('Plans');
       if (plansSection) {
@@ -144,7 +130,6 @@ const LoginModal = () => {
     }, 100);
   };
 
-  // Show loading while checking authentication
   if (checking) {
     return (
       <div className="auth-checking">
@@ -209,17 +194,16 @@ const LoginModal = () => {
             </div>
           </form>
 
-          {/* User Information Section */}
-          <div className="user-info-section" style={{ 
-            marginTop: '25px', 
-            padding: '20px', 
-            backgroundColor: '#f8f9fa', 
+          <div className="user-info-section" style={{
+            marginTop: '25px',
+            padding: '20px',
+            backgroundColor: '#f8f9fa',
             borderRadius: '8px',
             border: '1px solid #e9ecef'
           }}>
-            <h4 style={{ 
-              fontSize: '16px', 
-              marginBottom: '12px', 
+            <h4 style={{
+              fontSize: '16px',
+              marginBottom: '12px',
               color: '#495057',
               fontWeight: '600'
             }}>

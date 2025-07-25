@@ -1,6 +1,3 @@
-/* AdminPanel.css - Complete Updated Version with Modal Support */
-
-/* Admin Login Styles */
 .admin-login-container {
   display: flex;
   justify-content: center;
@@ -65,7 +62,6 @@
   cursor: not-allowed;
 }
 
-/* Main Admin Panel Styles */
 .admin-panel {
   display: flex;
   min-height: 100vh;
@@ -73,7 +69,6 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Sidebar Styles */
 .admin-sidebar {
   width: 250px;
   background: #1f2937;
@@ -114,7 +109,6 @@
   transform: translateY(-1px);
 }
 
-/* Navigation Styles */
 .admin-nav {
   display: flex;
   flex-direction: column;
@@ -145,7 +139,6 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Main Content Area */
 .admin-content {
   flex: 1;
   padding: 30px;
@@ -161,7 +154,6 @@
   font-weight: 700;
 }
 
-/* Dashboard Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -200,7 +192,6 @@
   display: block;
 }
 
-/* Users Section Styles */
 .users-table {
   margin-top: 20px;
   display: grid;
@@ -277,8 +268,9 @@
   flex-shrink: 0;
 }
 
-/* Action Buttons */
-.approve-btn, .reject-btn, .complete-btn {
+.approve-btn,
+.reject-btn,
+.complete-btn {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -289,12 +281,14 @@
   font-weight: 500;
 }
 
-.approve-btn, .complete-btn {
+.approve-btn,
+.complete-btn {
   background: #10b981;
   color: white;
 }
 
-.approve-btn:hover, .complete-btn:hover {
+.approve-btn:hover,
+.complete-btn:hover {
   background: #059669;
   transform: translateY(-1px);
 }
@@ -309,7 +303,6 @@
   transform: translateY(-1px);
 }
 
-/* Withdrawals Section Styles */
 .withdrawals-table {
   margin-top: 20px;
   display: grid;
@@ -361,7 +354,6 @@
   flex-shrink: 0;
 }
 
-/* Status Badges */
 .status {
   font-weight: bold;
   text-transform: uppercase;
@@ -390,7 +382,6 @@
   color: #991b1b;
 }
 
-/* Modal Overlay and Container */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -418,7 +409,6 @@
   animation: slideIn 0.3s ease-out;
 }
 
-/* Modal Header */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -457,12 +447,10 @@
   color: #374151;
 }
 
-/* Modal Body */
 .modal-body {
   padding: 24px;
 }
 
-/* User Details Modal Specific Styles */
 .user-details-grid {
   display: grid;
   gap: 24px;
@@ -532,7 +520,6 @@
   font-size: 16px !important;
 }
 
-/* Screenshot Section */
 .screenshot-section {
   margin-top: 24px;
 }
@@ -580,7 +567,6 @@
   font-weight: 500;
 }
 
-/* Withdrawal Details Modal Specific Styles */
 .withdrawal-details-grid {
   display: grid;
   gap: 24px;
@@ -623,7 +609,6 @@
   word-break: break-all;
 }
 
-/* Modal Footer */
 .modal-footer {
   padding: 20px 24px;
   border-top: 1px solid #e5e7eb;
@@ -638,7 +623,6 @@
   flex-wrap: wrap;
 }
 
-/* Modal Action Buttons */
 .approve-btn-modal,
 .reject-btn-modal,
 .complete-btn-modal,
@@ -692,11 +676,11 @@
   transform: translateY(-1px);
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -707,13 +691,13 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Loading States */
 .loading-spinner {
   display: inline-block;
   width: 20px;
@@ -725,75 +709,75 @@
 }
 
 @keyframes spin {
-  to { 
-    transform: rotate(360deg); 
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .admin-panel {
     flex-direction: column;
   }
-  
+
   .admin-sidebar {
     width: 100%;
   }
-  
+
   .admin-nav {
     flex-direction: row;
     overflow-x: auto;
   }
-  
-  .user-card, .withdrawal-card {
+
+  .user-card,
+  .withdrawal-card {
     flex-direction: column;
     text-align: center;
   }
-  
-  .user-actions, .withdrawal-actions {
+
+  .user-actions,
+  .withdrawal-actions {
     flex-direction: row;
     justify-content: center;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .modal-content {
     width: 95%;
     margin: 10px;
   }
-  
+
   .action-buttons {
     justify-content: center;
   }
-  
+
   .user-details-grid,
   .withdrawal-details-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .detail-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
-  
+
   .detail-item span {
     text-align: left;
   }
 }
 
-/* Print Styles */
 @media print {
   .modal-overlay {
     display: none;
   }
-  
+
   .admin-sidebar {
     display: none;
   }
-  
+
   .admin-content {
     padding: 0;
   }

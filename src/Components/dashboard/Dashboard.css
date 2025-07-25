@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow-x: hidden;
 }
@@ -909,7 +910,7 @@ html, body {
   .main-layout {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
     min-width: auto;
@@ -918,43 +919,43 @@ html, body {
     border-right: none;
     border-bottom: 1px solid #334155;
   }
-  
+
   .user-card {
     padding: 16px;
   }
-  
+
   .user-avatar {
     width: 60px;
     height: 60px;
   }
-  
+
   .avatar-text {
     font-size: 24px;
   }
-  
+
   .user-name {
     font-size: 16px;
   }
-  
+
   .user-email {
     font-size: 12px;
   }
-  
+
   .navigation {
     padding: 16px;
   }
-  
+
   .nav-list {
     flex-direction: row;
     overflow-x: auto;
     gap: 12px;
     padding-bottom: 8px;
   }
-  
+
   .nav-item {
     flex-shrink: 0;
   }
-  
+
   .nav-button {
     padding: 12px 16px;
     font-size: 14px;
@@ -962,86 +963,86 @@ html, body {
     min-width: 120px;
     justify-content: center;
   }
-  
+
   .nav-icon {
     margin-right: 8px;
     width: 16px;
     height: 16px;
   }
-  
+
   .main-content {
     height: auto;
     flex: 1;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
     padding: 20px;
   }
-  
+
   .page-info {
     text-align: left;
   }
-  
+
   .content-area {
     padding: 20px;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .stat-card {
     padding: 24px;
   }
-  
+
   .stat-value {
     font-size: 28px;
   }
-  
+
   .table-header,
   .table-row {
     padding: 12px 16px;
   }
-  
+
   .referral-link-container {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .referral-stats {
     grid-template-columns: 1fr;
   }
-  
+
   .referral-table-header,
   .referral-table-row {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     font-size: 12px;
   }
-  
+
   .withdraw-table-header,
   .withdraw-table-row {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
     font-size: 12px;
   }
-  
+
   .feature-locked {
     padding: 40px 20px;
   }
-  
+
   .lock-icon {
     font-size: 48px;
   }
-  
+
   .feature-locked h3 {
     font-size: 20px;
   }
-  
+
   .feature-locked p {
     font-size: 14px;
   }
@@ -1051,72 +1052,72 @@ html, body {
   .header {
     padding: 16px;
   }
-  
+
   .content-area {
     padding: 16px;
   }
-  
+
   .stat-card {
     padding: 20px;
   }
-  
+
   .stat-value {
     font-size: 24px;
   }
-  
+
   .user-card {
     padding: 16px;
   }
-  
+
   .logout-btn {
     padding: 10px 14px;
     font-size: 13px;
   }
-  
+
   .app-title {
     font-size: 20px;
   }
-  
+
   .page-title {
     font-size: 18px;
   }
-  
+
   .referral-header,
   .withdraw-request,
   .withdraw-history,
   .referral-list {
     padding: 20px;
   }
-  
+
   .user-profile {
     align-items: center;
   }
-  
+
   .earnings-info {
     width: 100%;
   }
-  
+
   .earning-item {
     padding: 6px 10px;
   }
-  
+
   .earning-label {
     font-size: 11px;
   }
-  
+
   .earning-value {
     font-size: 12px;
   }
-  
+
   .plan-info {
     flex-direction: column;
     gap: 6px;
   }
-  
+
   .withdraw-input {
     max-width: 100%;
   }
-  
+
   .withdraw-btn {
     max-width: 100%;
   }
