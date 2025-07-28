@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import { API_BASE_URL } from '../../config/api';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Overview');
@@ -9,6 +10,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [binanceWallet, setBinanceWallet] = useState('');
+  const [isSubmittingWithdrawal, setIsSubmittingWithdrawal] = useState(false);
 
   const [referralData, setReferralData] = useState({
     referralCode: '',
@@ -117,6 +119,7 @@ const Dashboard = () => {
         }
       }
     } catch (error) {
+      console.error('Error refreshing user data:', error);
     }
   };
 
@@ -125,6 +128,7 @@ const Dashboard = () => {
       await loadReferralData(userId);
       await loadWithdrawalData(userId);
     } catch (error) {
+      console.error('Error loading dashboard data:', error);
     }
   };
 
@@ -227,6 +231,7 @@ const Dashboard = () => {
         });
       }
     } catch (error) {
+      console.error('Error generating referral code:', error);
     }
 
     return null;
@@ -264,6 +269,7 @@ const Dashboard = () => {
         }
       }
     } catch (error) {
+      console.error('Error loading withdrawal data:', error);
     }
   };
 
@@ -331,6 +337,8 @@ const Dashboard = () => {
       return;
     }
 
+    setIsSubmittingWithdrawal(true);
+
     try {
       const response = await fetch(`${API_BASE_URL}/withdrawal/request`, {
         method: 'POST',
@@ -348,15 +356,29 @@ const Dashboard = () => {
       const data = await response.json();
 
       if (response.ok && data.meta.status) {
-        alert(`Withdrawal request of $${withdrawAmount} submitted successfully!`);
+        alert(`✅ Withdrawal request of $${withdrawAmount} submitted successfully!\n💸 Amount has been deducted from your balance.\n📋 Request Status: Pending Admin Approval`);
+        
+        // Clear form
         setWithdrawAmount('');
         setBinanceWallet('');
+        
+        // Refresh withdrawal data immediately to show updated balance
+        console.log('🔄 Refreshing withdrawal data after successful request...');
         await loadWithdrawalData(userData.id);
+        
+        // Also refresh referral data in case there are updates
+        await loadReferralData(userData.id);
+        
+        console.log('✅ Dashboard data refreshed successfully');
+        
       } else {
-        alert(data.meta.message || 'Withdrawal request failed');
+        alert(`❌ ${data.meta.message || 'Withdrawal request failed'}`);
       }
     } catch (error) {
-      alert('Network error. Please try again.');
+      console.error('Withdrawal request error:', error);
+      alert('❌ Network error. Please try again.');
+    } finally {
+      setIsSubmittingWithdrawal(false);
     }
   };
 
@@ -583,7 +605,7 @@ const Dashboard = () => {
                 min="30"
                 step="0.01"
                 max={getAvailableBalance()}
-                disabled={!isWithdrawalAvailable()}
+                disabled={!isWithdrawalAvailable() || isSubmittingWithdrawal}
               />
               {!isWithdrawalAvailable() && getAvailableBalance() > 0 && getAvailableBalance() < 30 && (
                 <small className="error-text">
@@ -599,7 +621,7 @@ const Dashboard = () => {
                 onChange={(e) => setBinanceWallet(e.target.value)}
                 placeholder={isWithdrawalAvailable() ? "Enter your Binance wallet address" : "Available after reaching $30 balance"}
                 className="withdraw-input"
-                disabled={!isWithdrawalAvailable()}
+                disabled={!isWithdrawalAvailable() || isSubmittingWithdrawal}
               />
               <small>Only Binance wallet addresses are accepted</small>
             </div>
@@ -623,12 +645,13 @@ const Dashboard = () => {
             </div>
             <button
               onClick={handleWithdrawRequest}
-              className={`withdraw-btn ${!isWithdrawalAvailable() ? 'disabled' : ''}`}
-              disabled={!isWithdrawalAvailable()}
+              className={`withdraw-btn ${!isWithdrawalAvailable() || isSubmittingWithdrawal ? 'disabled' : ''}`}
+              disabled={!isWithdrawalAvailable() || isSubmittingWithdrawal}
             >
-              {!isWithdrawalAvailable() ?
-                (getAvailableBalance() < 30 ? 'Insufficient Balance' : 'Account Not Approved') :
-                'Request Withdrawal'
+              {isSubmittingWithdrawal ? 'Processing...' :
+                !isWithdrawalAvailable() ?
+                  (getAvailableBalance() < 30 ? 'Insufficient Balance' : 'Account Not Approved') :
+                  'Request Withdrawal'
               }
             </button>
           </div>
