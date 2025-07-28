@@ -34,14 +34,7 @@ export default function Card1({ name, p1, p2, onChoose }) {
               <span>Weekly Income:</span>
               <strong>{planData.weeklyIncome}</strong>
             </li>
-            <li>
-              <span>Weeks:</span>
-              <strong>{planData.monthlyIncome}</strong>
-            </li>
-            <li>
-              <span>Months:</span>
-              <strong>{planData.duration}</strong>
-            </li>
+          
           </ul>
         </div>
       </div>

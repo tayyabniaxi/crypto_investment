@@ -165,7 +165,7 @@ const RegisterModal = () => {
           <div className="signup-form-box">
             <h2>Sign Up</h2>
             <p>Build Your Future, One Click at a Time</p>
-{/* 
+ 
             {referralCode && (
               <div className="referral-info">
                 <p className="referral-message">
@@ -175,7 +175,7 @@ const RegisterModal = () => {
               </div>
             )}
 
-            {selectedPlanData && (
+            {/* {selectedPlanData && (
               <div className="selected-plan-display">
                 <h4>Selected Plan: <span className="plan-name">{selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</span></h4>
                 <div className="plan-details">
@@ -184,7 +184,7 @@ const RegisterModal = () => {
                   <p><strong>Weekly Income:</strong> {selectedPlanData.weeklyIncome}</p>
                 </div>
               </div>
-            )} */}
+            )}  */}
 
             <form onSubmit={handleSubmit}>
               <label>Email, Phone</label>
@@ -221,7 +221,7 @@ const RegisterModal = () => {
               )}
 
               {/* Optional referral code input for manual entry */}
-              {/* {!referralCode && (
+              {!referralCode && (
                 <>
                   <label>Referral Code (Optional)</label>
                   <input
@@ -231,7 +231,7 @@ const RegisterModal = () => {
                     onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                   />
                 </>
-              )} */}
+              )}
 
               {/* <label>Payment Account Number</label>
               <div className="account-number-section">

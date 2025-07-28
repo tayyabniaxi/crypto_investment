@@ -382,13 +382,14 @@ const Dashboard = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">Loading...</div>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="loading-container">
+      <div className="loading-spinner"></div>
+      <span>Loading...</span>
+    </div>
+  );
+}
 
   const userPlan = userData?.selectedPlan;
   const planName = userPlan?.planName || 'No Plan';

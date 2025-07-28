@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./PaymentDetailsModal.css";
 import CloseButtonIconn from "../../Assets/CloseButtonIconn.svg";
+import { API_BASE_URL } from "../../config/api";
+import { investmentPlans } from "../AfterHero/Cards/investmentPlans";
 
 const PaymentDetailsModal = ({ planName, onClose, onConfirm }) => {
+  const [accountNumber, setAccountNumber] = useState("Loading...");
+  const [planDetails, setPlanDetails] = useState({});
+
+  useEffect(() => {
+    loadAccountNumber();
+    if (planName) {
+      setPlanDetails(investmentPlans[planName.toLowerCase()] || {});
+    }
+  }, [planName]);
+
+  const loadAccountNumber = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/account-number`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.meta.status) {
+          setAccountNumber(data.data.accountNumber);
+        } else {
+          setAccountNumber("Account number not available");
+        }
+      } else {
+        setAccountNumber("Account number not available");
+      }
+    } catch (error) {
+      setAccountNumber("Account number not available");
+    }
+  };
+
   return (
     <div className="modal-backdrop">
       <div className="payment-modal">
@@ -24,19 +60,17 @@ const PaymentDetailsModal = ({ planName, onClose, onConfirm }) => {
           </div>
           <div className="modal-row">
             <span>Amount</span>
-            <span className="modal-link">$1000</span>
+            <span className="modal-link">{planDetails.investmentAmount || "$0"}</span>
           </div>
+         
           <div className="modal-row">
             <span>Bank Name</span>
-            <span className="modal-link">bank name</span>
+            <span className="modal-link">Binance</span>
           </div>
-          <div className="modal-row">
-            <span>Account Name</span>
-            <span className="modal-link">account name</span>
-          </div>
+          
           <div className="modal-row">
             <span>Account Number</span>
-            <span className="modal-link">account number</span>
+            <span className="modal-link">{accountNumber}</span>
           </div>
         </div>
 
