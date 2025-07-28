@@ -1,11 +1,10 @@
 import "./Cards1.css";
-import "./investmentPlans";
 import { investmentPlans } from "./investmentPlans";
 import { useNavigate } from "react-router-dom";
 
-export default function Card1(props) {
+export default function Card1({ name, p1, p2 }) {
   const navigate = useNavigate();
-  const planName = props.name.toLowerCase();
+  const planName = name.toLowerCase();
   const planData = investmentPlans[planName];
 
   const handlePlanSelection = () => {
@@ -14,28 +13,20 @@ export default function Card1(props) {
 
   return (
     <div className="everycard">
-      <div className="card" id="card">
+      <div className="card">
         <div className="card-upper-body">
-          <h5 className="card-title" id="card-title1">
-            {props.name}
-          </h5>
-          <div id="text-inside">
-            <p className="card-text" id="card-text1">
-              {props.p1}
-            </p>
-            <p className="card-text" id="card-text2">
-              {props.p2}
-            </p>
+          <h5 className="card-title">{name}</h5>
+          <div className="text-inside">
+            <p className="card-text1">{p1}</p>
+            <p className="card-text2">{p2}</p>
           </div>
-          <div>
-            <button id="button" onClick={handlePlanSelection}>
-              Choose Plan
-            </button>
-          </div>
+          <button className="card-button" onClick={handlePlanSelection}>
+            Choose Plan
+          </button>
         </div>
 
-        <div id="main-list">
-          <ul id="list1">
+        <div className="main-list">
+          <ul className="list1">
             <li>
               <span>Investment Amount:</span>
               <strong>{planData.investmentAmount}</strong>
@@ -55,10 +46,6 @@ export default function Card1(props) {
             <li>
               <span>Months:</span>
               <strong>{planData.duration}</strong>
-            </li>
-            <li>
-              <span></span>
-              <strong></strong>
             </li>
           </ul>
         </div>

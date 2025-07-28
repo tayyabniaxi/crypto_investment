@@ -1,28 +1,31 @@
-#picture1 {
-  margin-top: 30px;
-  width: 120px;
-  height: 120px;
-  transition: transform 0.2s ease;
+.card2-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 20px;
 }
 
+/* Card container */
 .card-upper-body2 {
-  margin-top: 30px;
   border: 1.5px solid rgb(174, 174, 174);
   border-radius: 20px;
-  width: 350px;
-  height: 387px;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   cursor: pointer;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
 }
 
 .card-upper-body2:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  border-color: #000000;
+  border-color: #000;
 }
 
 .card-upper-body2:active {
@@ -30,36 +33,15 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#card-text1-new {
-  margin-top: 15px;
-  margin-bottom: 0;
-  width: 223px;
-  height: 72px;
-  text-align: center;
-  color: #7392f9;
-  font-size: 20px;
-  font-family: "poppins";
-  transition: color 0.3s ease;
-}
-
-.card-upper-body2:hover #card-text1-new {
-  color: #5a7df5;
-}
-
-#card-text2-new {
-  width: 293px;
+#picture1 {
+  margin-top: 10px;
+  width: 120px;
   height: 120px;
-  text-align: center;
-  color: #acacac;
-  font-size: 23px;
-  font-weight: 400;
-  margin-bottom: 30px;
-  line-height: 100%;
-  transition: color 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
-.card-upper-body2:hover #card-text2-new {
-  color: #505050;
+.card-upper-body2:hover #picture1 {
+  transform: scale(1.05);
 }
 
 #button-inside-card {
@@ -75,6 +57,62 @@
   transform: scale(0.95);
 }
 
-.card-upper-body2:hover #picture1 {
-  transform: scale(1.05);
+#card-text1-new {
+  margin-top: 15px;
+  margin-bottom: 0;
+  text-align: center;
+  color: #7392f9;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  transition: color 0.3s ease;
+}
+
+.card-upper-body2:hover #card-text1-new {
+  color: #5a7df5;
+}
+
+#card-text2-new {
+  text-align: center;
+  color: #acacac;
+  font-size: 23px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.card-upper-body2:hover #card-text2-new {
+  color: #505050;
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  #card-text1-new {
+    font-size: 18px;
+  }
+
+  #card-text2-new {
+    font-size: 20px;
+  }
+
+  #picture1 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-upper-body2 {
+    padding: 16px;
+    min-height: auto;
+  }
+
+  #card-text1-new {
+    font-size: 16px;
+  }
+
+  #card-text2-new {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
 }
