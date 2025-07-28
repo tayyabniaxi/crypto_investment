@@ -165,8 +165,7 @@ const RegisterModal = () => {
           <div className="signup-form-box">
             <h2>Sign Up</h2>
             <p>Build Your Future, One Click at a Time</p>
-
-            {/* Show referral info if present */}
+{/* 
             {referralCode && (
               <div className="referral-info">
                 <p className="referral-message">
@@ -185,7 +184,7 @@ const RegisterModal = () => {
                   <p><strong>Weekly Income:</strong> {selectedPlanData.weeklyIncome}</p>
                 </div>
               </div>
-            )}
+            )} */}
 
             <form onSubmit={handleSubmit}>
               <label>Email, Phone</label>
@@ -222,7 +221,7 @@ const RegisterModal = () => {
               )}
 
               {/* Optional referral code input for manual entry */}
-              {!referralCode && (
+              {/* {!referralCode && (
                 <>
                   <label>Referral Code (Optional)</label>
                   <input
@@ -232,9 +231,9 @@ const RegisterModal = () => {
                     onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                   />
                 </>
-              )}
+              )} */}
 
-              <label>Payment Account Number</label>
+              {/* <label>Payment Account Number</label>
               <div className="account-number-section">
                 <textarea
                   value={adminAccountNumber}
@@ -252,7 +251,7 @@ const RegisterModal = () => {
                   📋 Copy
                 </button>
               </div>
-              <small className="account-info">Use this account number to make your payment, then upload the screenshot below.</small>
+              <small className="account-info">Use this account number to make your payment, then upload the screenshot below.</small> */}
 
               <label>Payment Screenshot</label>
               <div className="file-upload-box">

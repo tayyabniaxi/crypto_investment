@@ -1,15 +1,10 @@
 import "./Cards1.css";
 import { investmentPlans } from "./investmentPlans";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
-export default function Card1({ name, p1, p2 }) {
-  const navigate = useNavigate();
+export default function Card1({ name, p1, p2, onChoose }) {
   const planName = name.toLowerCase();
   const planData = investmentPlans[planName];
-
-  const handlePlanSelection = () => {
-    navigate(`/register?plan=${planName}`);
-  };
 
   return (
     <div className="everycard">
@@ -20,7 +15,7 @@ export default function Card1({ name, p1, p2 }) {
             <p className="card-text1">{p1}</p>
             <p className="card-text2">{p2}</p>
           </div>
-          <button className="card-button" onClick={handlePlanSelection}>
+          <button className="card-button" onClick={() => onChoose(name)}>
             Choose Plan
           </button>
         </div>

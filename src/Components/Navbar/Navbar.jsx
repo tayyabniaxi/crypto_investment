@@ -56,7 +56,7 @@ export default function Navbar() {
                 Reviews
               </a>
             </li>
-            
+
             <li className="menu-item mobile-login-item">
               <button
                 className="login-button mobile-login-button"
@@ -71,6 +71,18 @@ export default function Navbar() {
         <div className="login-button-wrapper">
           <button className="login-button" onClick={handleLoginClick}>
             Login
+          </button>
+
+          <button
+            className="sign-up"
+            onClick={() => {
+              const plansSection = document.getElementById("Plans");
+              if (plansSection) {
+                plansSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
+            Sign Up
           </button>
         </div>
       </nav>
