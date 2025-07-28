@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterModal.css";
 import LoginFrame from "../../../Assets/LoginFrame.svg";
-import UploadScreenshot from "../../../Assets/Upload-Screenshot.svg"
+import UploadScreenshot from "../../../Assets/Upload-Screenshot.svg";
 import Navbar from "../Navbar";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { investmentPlans } from "../../AfterHero/Cards/investmentPlans";
@@ -16,17 +16,73 @@ const RegisterModal = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [file, setFile] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState("");
+  const [referralCode, setReferralCode] = useState("");
   const [errors, setErrors] = useState({});
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [adminAccountNumber, setAdminAccountNumber] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const planFromUrl = searchParams.get('plan');
+    const refFromUrl = searchParams.get('ref');
+    
+    if (refFromUrl) {
+      setReferralCode(refFromUrl);
+    }
+    
     if (planFromUrl && investmentPlans[planFromUrl]) {
       setSelectedPlan(planFromUrl);
     } else {
       navigate('/');
     }
+
+    loadAdminAccountNumber();
   }, [searchParams, navigate]);
+
+  const loadAdminAccountNumber = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/account-number`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.meta.status) {
+          setAdminAccountNumber(data.data.accountNumber || "Loading account number...");
+        } else {
+          setAdminAccountNumber("Account number not available");
+        }
+      } else {
+        setAdminAccountNumber("Account number not available");
+      }
+    } catch (error) {
+      setAdminAccountNumber("Account number not available");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyAccountNumber = () => {
+    if (adminAccountNumber && adminAccountNumber !== "Loading account number..." && adminAccountNumber !== "Account number not available") {
+      navigator.clipboard.writeText(adminAccountNumber).then(() => {
+        alert('Account number copied to clipboard!');
+      }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = adminAccountNumber;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Account number copied to clipboard!');
+      });
+    } else {
+      alert('Account number not available to copy');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,6 +122,10 @@ const RegisterModal = () => {
         formData.append('password', password);
         formData.append('screenshot', file);
         formData.append('selectedPlan', selectedPlan);
+        
+        if (referralCode) {
+          formData.append('referralCode', referralCode);
+        }
 
         const response = await fetch(`${API_BASE_URL}/user/signup`, {
           method: 'POST',
@@ -105,6 +165,16 @@ const RegisterModal = () => {
           <div className="signup-form-box">
             <h2>Sign Up</h2>
             <p>Build Your Future, One Click at a Time</p>
+
+            {/* Show referral info if present */}
+            {referralCode && (
+              <div className="referral-info">
+                <p className="referral-message">
+                  🎉 You're signing up with referral code: <strong>{referralCode}</strong>
+                </p>
+                <p className="referral-bonus">Your referrer will receive a $3 bonus when your account gets approved!</p>
+              </div>
+            )}
 
             {selectedPlanData && (
               <div className="selected-plan-display">
@@ -151,6 +221,39 @@ const RegisterModal = () => {
                 <p className="error-message">{errors.confirmPassword}</p>
               )}
 
+              {/* Optional referral code input for manual entry */}
+              {!referralCode && (
+                <>
+                  <label>Referral Code (Optional)</label>
+                  <input
+                    type="text"
+                    placeholder="Enter referral code if you have one"
+                    value={referralCode}
+                    onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                  />
+                </>
+              )}
+
+              <label>Payment Account Number</label>
+              <div className="account-number-section">
+                <textarea
+                  value={adminAccountNumber}
+                  readOnly
+                  className="account-number-input"
+                  placeholder={loading ? "Loading account number..." : "Account number will appear here"}
+                  rows="2"
+                />
+                <button
+                  type="button"
+                  onClick={copyAccountNumber}
+                  className="copy-account-btn"
+                  disabled={loading || !adminAccountNumber || adminAccountNumber === "Loading account number..." || adminAccountNumber === "Account number not available"}
+                >
+                  📋 Copy
+                </button>
+              </div>
+              <small className="account-info">Use this account number to make your payment, then upload the screenshot below.</small>
+
               <label>Payment Screenshot</label>
               <div className="file-upload-box">
                 <div className="file-input-wrapper">
@@ -167,12 +270,18 @@ const RegisterModal = () => {
                     Upload
                   </button>
                 </div>
+                {file && (
+                  <div className="file-selected">
+                    <span>Selected: {file.name}</span>
+                  </div>
+                )}
               </div>
               {errors.file && <p className="error-message">{errors.file}</p>}
               {errors.plan && <p className="error-message">{errors.plan}</p>}
 
               <button type="submit" className="signup-btn">
                 Sign Up with {selectedPlan ? selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1) : ''} Plan
+                {referralCode && ' + Referral Bonus'}
               </button>
             </form>
 
@@ -191,19 +300,17 @@ const RegisterModal = () => {
           </div>
         </div>
 
-     <div className="signup-right">
-  <div className="upload-instructions">
-    <h3>
-      <span className="note-red">Note !</span> Upload Your Payment Screenshot :
-    </h3>
-    <p>
-      Upload your payment screenshot in given input field, then we will verify your payment.
-    </p>
- <img src={UploadScreenshot} alt="Upload Illustration" className="upload-illustration" />
-
-  </div>
-</div>
-
+        <div className="signup-right">
+          <div className="upload-instructions">
+            <h3>
+              <span className="note-red">Note !</span> Upload Your Payment Screenshot :
+            </h3>
+            <p>
+              Upload your payment screenshot in given input field, then we will verify your payment.
+            </p>
+            <img src={UploadScreenshot} alt="Upload Illustration" className="upload-illustration" />
+          </div>
+        </div>
       </div>
 
       {showSuccessModal && (
@@ -214,6 +321,11 @@ const RegisterModal = () => {
             <p>
               Your request has been received with <strong>{selectedPlan?.charAt(0).toUpperCase() + selectedPlan?.slice(1)} Plan</strong>.
             </p>
+            {referralCode && (
+              <p className="referral-success">
+                🎉 You were referred by someone! They will receive a $3 bonus when your account gets approved by admin.
+              </p>
+            )}
             <p>
               You will be notified via email once your payment is verified.
             </p>

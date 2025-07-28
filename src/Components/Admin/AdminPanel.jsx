@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminPanel.css';
 import { API_BASE_URL } from '../../config/api';
+
 const AdminPanel = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -16,6 +17,10 @@ const AdminPanel = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
   const [selectedWithdrawal, setSelectedWithdrawal] = useState(null);
+
+  const [accountNumber, setAccountNumber] = useState('');
+  const [savingAccount, setSavingAccount] = useState(false);
+  const [accountMessage, setAccountMessage] = useState('');
 
   useEffect(() => {
     checkAdminAuth();
@@ -69,8 +74,6 @@ const AdminPanel = () => {
           if (statsData.meta.status) {
             setAdminStats(statsData.data);
           }
-        } else {
-          console.error('Failed to load admin stats:', statsResponse.status);
         }
       }
 
@@ -81,8 +84,6 @@ const AdminPanel = () => {
           if (usersData.meta.status) {
             setPendingUsers(usersData.data);
           }
-        } else {
-          console.error('Failed to load pending users:', usersResponse.status);
         }
       }
 
@@ -93,8 +94,16 @@ const AdminPanel = () => {
           if (withdrawalsData.meta.status) {
             setWithdrawalRequests(withdrawalsData.data);
           }
-        } else {
-          console.error('Failed to load withdrawals:', withdrawalsResponse.status);
+        }
+      }
+
+      if (activeTab === 'Settings') {
+        const accountResponse = await fetch(`${API_BASE_URL}/admin/account-number`, { headers });
+        if (accountResponse.ok) {
+          const accountData = await accountResponse.json();
+          if (accountData.meta.status) {
+            setAccountNumber(accountData.data.accountNumber);
+          }
         }
       }
     } catch (error) {
@@ -191,6 +200,45 @@ const AdminPanel = () => {
     }
   };
 
+  const handleAccountSave = async () => {
+    if (!accountNumber.trim()) {
+      setAccountMessage('Account number is required');
+      return;
+    }
+
+    setSavingAccount(true);
+    setAccountMessage('');
+
+    try {
+      const token = localStorage.getItem('adminToken') || localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/admin/account-number`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ accountNumber: accountNumber.trim() })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.meta.status) {
+        setAccountMessage('✅ Account number updated successfully! Changes will reflect on signup page.');
+      } else {
+        setAccountMessage(`❌ ${data.meta.message || 'Failed to update account number'}`);
+      }
+    } catch (error) {
+      console.error('Error updating account number:', error);
+      setAccountMessage('❌ Network error. Please try again.');
+    } finally {
+      setSavingAccount(false);
+    }
+  };
+
+  const handlePreviewSignup = () => {
+    window.open('/register?plan=gold', '_blank');
+  };
+
   const UserDetailsModal = () => {
     if (!showUserModal || !selectedUser) return null;
 
@@ -220,6 +268,12 @@ const AdminPanel = () => {
                     {selectedUser.status.toUpperCase()}
                   </span>
                 </div>
+                {selectedUser.referredBy && (
+                  <div className="detail-item">
+                    <label>Referred By:</label>
+                    <span className="referral-code">{selectedUser.referredBy}</span>
+                  </div>
+                )}
               </div>
 
               <div className="plan-info-section">
@@ -347,12 +401,6 @@ const AdminPanel = () => {
             {selectedWithdrawal.status === 'pending' && (
               <div className="action-buttons">
                 <button
-                  onClick={() => handleWithdrawalAction(selectedWithdrawal.withdrawalId, 'approved')}
-                  className="approve-btn-modal"
-                >
-                  ✅ Approve
-                </button>
-                <button
                   onClick={() => handleWithdrawalAction(selectedWithdrawal.withdrawalId, 'completed')}
                   className="complete-btn-modal"
                 >
@@ -415,13 +463,13 @@ const AdminPanel = () => {
           </div>
 
           <nav className="admin-nav">
-            {['Dashboard', 'Users', 'Withdrawals'].map((tab) => (
+            {['Dashboard', 'Users', 'Withdrawals', 'Settings'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`nav-btn ${activeTab === tab ? 'active' : ''}`}
               >
-                {tab}
+                {tab === 'Settings' ? '⚙️ Settings' : tab}
               </button>
             ))}
           </nav>
@@ -475,6 +523,9 @@ const AdminPanel = () => {
                         <h4>{user.email}</h4>
                         <p>Plan: {user.plan} ({user.investmentAmount})</p>
                         <p>Registered: {user.registeredAt}</p>
+                        {user.referredBy && (
+                          <p>Referred by: <span className="referral-code">{user.referredBy}</span></p>
+                        )}
                         <span className="click-hint">Click to view details</span>
                       </div>
                       <div className="user-screenshot">
@@ -536,15 +587,6 @@ const AdminPanel = () => {
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleWithdrawalAction(withdrawal.withdrawalId, 'approved');
-                              }}
-                              className="approve-btn"
-                            >
-                              Approve
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
                                 handleWithdrawalAction(withdrawal.withdrawalId, 'completed');
                               }}
                               className="complete-btn"
@@ -568,6 +610,66 @@ const AdminPanel = () => {
                 ) : (
                   <p>No withdrawal requests found.</p>
                 )}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Settings' && (
+            <div className="settings-section">
+              <h3>💳 Account Settings</h3>
+              
+              <div className="account-settings-card">
+                <div className="settings-header">
+                  <h4>Payment Account Number</h4>
+                  <p>This account number will be shown to users on the signup page for making payments.</p>
+                </div>
+
+                <div className="account-form">
+                  <div className="form-group">
+                    <label htmlFor="accountNumber">Account Number:</label>
+                    <textarea
+                      id="accountNumber"
+                      value={accountNumber}
+                      onChange={(e) => setAccountNumber(e.target.value)}
+                      placeholder="Enter the account number for user payments"
+                      rows="3"
+                      className="account-input"
+                    />
+                  </div>
+
+                  <div className="form-actions">
+                    <button
+                      onClick={handleAccountSave}
+                      disabled={savingAccount}
+                      className="save-btn"
+                    >
+                      {savingAccount ? '💾 Saving...' : '💾 Save Changes'}
+                    </button>
+
+                    <button
+                      onClick={handlePreviewSignup}
+                      className="preview-btn"
+                    >
+                      👁️ Preview Signup Page
+                    </button>
+                  </div>
+
+                  {accountMessage && (
+                    <div className={`message ${accountMessage.includes('✅') ? 'success' : 'error'}`}>
+                      {accountMessage}
+                    </div>
+                  )}
+                </div>
+
+                <div className="settings-info">
+                  <h5>ℹ️ How it works:</h5>
+                  <ul>
+                    <li>Users will see this account number on the signup page</li>
+                    <li>They can copy it directly from a read-only text area</li>
+                    <li>Changes are applied immediately after saving</li>
+                    <li>Use the preview button to see how it looks to users</li>
+                  </ul>
+                </div>
               </div>
             </div>
           )}
