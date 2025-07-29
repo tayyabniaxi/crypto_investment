@@ -661,7 +661,7 @@ const AdminPanel = () => {
                   )}
                 </div>
 
-                <div className="settings-info">
+                {/* <div className="settings-info">
                   <h5>ℹ️ How it works:</h5>
                   <ul>
                     <li>Users will see this account number on the signup page</li>
@@ -669,7 +669,7 @@ const AdminPanel = () => {
                     <li>Changes are applied immediately after saving</li>
                     <li>Use the preview button to see how it looks to users</li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
           )}

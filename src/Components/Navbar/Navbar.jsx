@@ -2,11 +2,23 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../Assets/icon.png";
 import "./Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleScrollClick = (targetId) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollToId: targetId } });
+    } else {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   const handleLoginClick = () => {
     navigate("/login");
@@ -42,19 +54,31 @@ export default function Navbar() {
               </a>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#FAQs">
+              <span
+                className="menu-link"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleScrollClick("FAQs")}
+              >
                 FAQs
-              </a>
+              </span>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#Plans">
+              <span
+                className="menu-link"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleScrollClick("Plans")}
+              >
                 Plans
-              </a>
+              </span>
             </li>
             <li className="menu-item">
-              <a className="menu-link" href="#Reviews">
+              <span
+                className="menu-link"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleScrollClick("Reviews")}
+              >
                 Reviews
-              </a>
+              </span>
             </li>
 
             <li className="menu-item mobile-login-item">
@@ -73,7 +97,7 @@ export default function Navbar() {
             Login
           </button>
 
-          <button
+          {/* <button
             className="sign-up"
             onClick={() => {
               const plansSection = document.getElementById("Plans");
@@ -83,7 +107,7 @@ export default function Navbar() {
             }}
           >
             Sign Up
-          </button>
+          </button> */}
         </div>
       </nav>
     </div>
