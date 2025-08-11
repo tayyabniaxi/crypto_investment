@@ -515,11 +515,11 @@ if (loading) {
     return (
       <div className="referral-section">
         <div className="referral-header">
-          <h3>Share Your Link</h3>
+          <h3>Share Your Referral code</h3>
           <div className="referral-link-container">
             <input
               type="text"
-              value={referralData.referralLink || `${window.location.origin}/register?ref=${referralData.referralCode}`}
+              value={referralData.referralLink || `${referralData.referralCode}`}
               readOnly
               className="referral-input"
             />

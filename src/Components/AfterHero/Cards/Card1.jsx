@@ -27,7 +27,7 @@ export default function Card1({ name, p1, p2, onChoose }) {
               <strong>{planData.investmentAmount}</strong>
             </li>
             <li>
-              <span>Daily Return (1%):</span>
+              <span>Daily Return (2%):</span>
               <strong>{planData.dailyReturn}</strong>
             </li>
             <li>

@@ -17,50 +17,27 @@ export default function Review() {
         <div id="Card3-end">
           <Card3
             imgNew={pt1}
-            paragraph="The team exceeded my expectations!
-They designed a stunning, user
-friendly app for my business and
-delivered it on time. Highly
-recommend their services!"
+            paragraph="Just 12 days after investing, I received my first profit payout. The website’s live updates and their passion for the seashell trade really impressed me"
           ></Card3>
           <Card3
             imgNew={pt2}
-            paragraph="Fantastic experience from start to
-finish. Their web development team
-built us a high-performance website
-that looks great and works
-flawlessly. Super professional!"
+            paragraph="I joined 10 days ago and my first return has already arrived. Clear tracking on the website and knowing it’s backed by the seashell industry gave me confidence."
           ></Card3>
           <Card3
             imgNew={pt3}
-            paragraph="I was impressed by their SEO
-strategy we saw traffic improve
-within weeks! Plus, the design team
-gave our brand a fresh, modern look.
-Truly talented people."
+            paragraph="Within two weeks, my investment started paying off exactly as promised. I admire how they’ve turned the beauty of seashells into real business."
           ></Card3>
           <Card3
             imgNew={pt4}
-            paragraph="Clean code, creative design, and
-constant communication. They
-developed a mobile app for us that
-users absolutely love. Would work
-with them again 100%."
+            paragraph="Got my first earnings in only 8 working days. The transparency of the dashboard and their focus on rare seashells make them unique."
           ></Card3>
           <Card3
             imgNew={pt5}
-            paragraph="Their UI/UX work is next-level! My
-web app is not only beautiful but
-also super easy to use. Their
-attention to detail is unmatched."
+            paragraph="First profit came in after 14 days — smooth process and I love being part of a company dealing in something as natural as seashells."
           ></Card3>
           <Card3
             imgNew={pt6}
-            paragraph="From SEO to app development, they
-handled everything smoothly. The
-results speak for themselves better
-rankings, more traffic, and a faster
-app. Great job, team!"
+            paragraph="It took less than two weeks for my first payout to hit my account. The website shows everything clearly, and the seashell trade angle makes it exciting."
           ></Card3>
         </div>
       </div>

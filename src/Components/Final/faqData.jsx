@@ -1,51 +1,62 @@
 const faqData = [
   {
     id: 1,
-    question: "How long before I see results?",
+    question: " What does Sea Shell Earn Smart do?",
     answer:
-      "Typically, users see initial results within 2-4 weeks of consistent use.",
+      "We trade in rare and precious seashells sourced from trusted suppliers across the globe, delivering to collectors, jewelers, and décor markets worldwide.",
   },
   {
     id: 2,
-    question: "Is this product suitable for all skin types?",
+    question: "Where do you source your seashells from?",
     answer:
-      "Yes, our product is formulated to work with all skin types, including sensitive skin.",
+      "Our shells are sourced from the Indo-Pacific (Philippines, Indonesia, Sri Lanka, Maldives), select African and Oceanian regions via licensed exporters.",
   },
   {
     id: 3,
-    question: "How often should I use this product?",
+    question: "Are your seashells legally and ethically sourced?",
     answer:
-      "We recommend using it twice daily for optimal results - once in the morning and once at night.",
+      "Yes. We only work with suppliers who operate under local marine life harvesting laws, ensuring sustainability and environmental responsibility.",
   },
   {
     id: 4,
-    question: "Can I use this with other skincare products?",
+    question: "How do investors earn profit with Sea Shell Earn Smart?",
     answer:
-      "Yes, our product can be safely incorporated into your existing skincare routine.",
+      "We share a percentage of our trading profits with our investors on a regular basis. Profits are generated from the buying and selling of high-value seashells in global markets.",
   },
   {
     id: 5,
-    question: "What's your return policy?",
+    question: "How often do you distribute profits?",
     answer:
-      "We offer a 30-day money-back guarantee if you're not completely satisfied.",
+      "Profits are distributed [monthly/quarterly – you can decide] to registered investors through bank transfer or other agreed methods.",
   },
   {
     id: 6,
-    question: "Are your products cruelty-free?",
+    question: "What kinds of seashells do you deal in?",
     answer:
-      "Absolutely! We never test on animals and are certified cruelty-free.",
+      "We specialize in rare species like cowries, murex, conch, triton, and nautilus, as well as unique decorative shells and collector-grade specimens.",
   },
   {
     id: 7,
-    question: "Where are your products manufactured?",
+    question: " Can I see the proof of trade?",
     answer:
-      "All our products are made in FDA-approved facilities in the United States.",
+      "Yes. We maintain transparent records of our shipments, trade invoices, and export/import documentation, which are available to verified investors upon request.",
   },
   {
     id: 8,
-    question: "Do you offer international shipping?",
-    answer: "Yes, we ship worldwide with various shipping options available.",
+    question: "Do you ship seashells worldwide?",
+    answer: "Yes. We export to multiple countries through reliable logistics partners and follow all relevant customs regulations.",
   },
+  {
+    id: 9,
+    question: "Is my investment safe?",
+    answer: "We operate a real trading business with documented inventory and buyers. However, like any trade, market prices can fluctuate, but we focus on stable demand items.",
+  },
+  {
+    id: 10,
+    question: "How can I become an investor?",
+    answer: "You can join by contacting our investment department and completing the onboarding process, which includes identity verification and signing a partnership agreement.",
+  },
+
 ];
 
 export default faqData;

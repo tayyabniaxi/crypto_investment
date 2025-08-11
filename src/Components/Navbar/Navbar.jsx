@@ -57,9 +57,9 @@ export default function Navbar() {
               <span
                 className="menu-link"
                 style={{ cursor: "pointer" }}
-                onClick={() => handleScrollClick("FAQs")}
+                onClick={() => handleScrollClick("About-Us")}
               >
-                FAQs
+                About Us
               </span>
             </li>
             <li className="menu-item">
@@ -80,7 +80,15 @@ export default function Navbar() {
                 Reviews
               </span>
             </li>
-
+            <li className="menu-item">
+              <span
+                className="menu-link"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleScrollClick("FAQs")}
+              >
+                FAQs
+              </span>
+            </li>
             <li className="menu-item mobile-login-item">
               <button
                 className="login-button mobile-login-button"

@@ -10,6 +10,7 @@ const AdminPanel = () => {
 
   const [adminStats, setAdminStats] = useState({});
   const [pendingUsers, setPendingUsers] = useState([]);
+  const [approvedUsers, setApprovedUsers] = useState([]);
   const [withdrawalRequests, setWithdrawalRequests] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -17,6 +18,8 @@ const AdminPanel = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
   const [selectedWithdrawal, setSelectedWithdrawal] = useState(null);
+  const [showProfitHistoryModal, setShowProfitHistoryModal] = useState(false);
+  const [userProfitHistory, setUserProfitHistory] = useState(null);
 
   const [accountNumber, setAccountNumber] = useState('');
   const [savingAccount, setSavingAccount] = useState(false);
@@ -87,6 +90,16 @@ const AdminPanel = () => {
         }
       }
 
+      if (activeTab === 'Approved Users') {
+        const approvedResponse = await fetch(`${API_BASE_URL}/admin/approved-users`, { headers });
+        if (approvedResponse.ok) {
+          const approvedData = await approvedResponse.json();
+          if (approvedData.meta.status) {
+            setApprovedUsers(approvedData.data);
+          }
+        }
+      }
+
       if (activeTab === 'Withdrawals') {
         const withdrawalsResponse = await fetch(`${API_BASE_URL}/admin/withdrawal-requests`, { headers });
         if (withdrawalsResponse.ok) {
@@ -124,11 +137,38 @@ const AdminPanel = () => {
     setShowWithdrawalModal(true);
   };
 
+  const handleApprovedUserClick = async (user) => {
+    try {
+      const token = localStorage.getItem('adminToken') || localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/admin/user-profit-history/${user.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.meta.status) {
+          setUserProfitHistory(data.data);
+          setShowProfitHistoryModal(true);
+        } else {
+          alert('Failed to load user profit history');
+        }
+      }
+    } catch (error) {
+      console.error('Error loading profit history:', error);
+      alert('Network error. Please try again.');
+    }
+  };
+
   const closeModals = () => {
     setShowUserModal(false);
     setShowWithdrawalModal(false);
+    setShowProfitHistoryModal(false);
     setSelectedUser(null);
     setSelectedWithdrawal(null);
+    setUserProfitHistory(null);
   };
 
   const handleUserAction = async (userId, action) => {
@@ -235,9 +275,9 @@ const AdminPanel = () => {
     }
   };
 
-  const handlePreviewSignup = () => {
-    window.open('/register?plan=gold', '_blank');
-  };
+  // const handlePreviewSignup = () => {
+  //   window.open('/register?plan=gold', '_blank');
+  // };
 
   const UserDetailsModal = () => {
     if (!showUserModal || !selectedUser) return null;
@@ -436,6 +476,153 @@ const AdminPanel = () => {
     );
   };
 
+  const ProfitHistoryModal = () => {
+    if (!showProfitHistoryModal || !userProfitHistory) return null;
+
+    return (
+      <div className="modal-overlay" onClick={closeModals}>
+        <div className="modal-content profit-history-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-header">
+            <h3>📊 Profit History - {userProfitHistory.user.email}</h3>
+            <button className="close-btn" onClick={closeModals}>×</button>
+          </div>
+
+          <div className="modal-body">
+            {/* User Summary */}
+            <div className="user-summary-section">
+              <h4>👤 User Summary</h4>
+              <div className="summary-grid">
+                <div className="summary-item">
+                  <label>Plan:</label>
+                  <span className="plan-badge">{userProfitHistory.user.plan.toUpperCase()}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Investment:</label>
+                  <span>{userProfitHistory.user.investmentAmount}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Daily Return:</label>
+                  <span>{userProfitHistory.user.dailyReturn}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Plan Started:</label>
+                  <span>{userProfitHistory.user.planStartDate}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Total Days:</label>
+                  <span>{userProfitHistory.user.totalDays}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Investment Earnings:</label>
+                  <span className="earnings">{userProfitHistory.user.totalInvestmentEarnings}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Referral Earnings:</label>
+                  <span className="earnings">{userProfitHistory.user.totalReferralEarnings}</span>
+                </div>
+                <div className="summary-item">
+                  <label>Total Balance:</label>
+                  <span className="total-balance">{userProfitHistory.user.totalBalance}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Daily Profits Table */}
+            <div className="profits-section">
+              <h4>💰 Daily Profit History</h4>
+              <div className="profits-table-container">
+                <table className="profits-table">
+                  <thead>
+                    <tr>
+                      <th>Day</th>
+                      <th>Date</th>
+                      <th>Daily Profit</th>
+                      <th>Cumulative Total</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {userProfitHistory.dailyProfits.length > 0 ? (
+                      userProfitHistory.dailyProfits.map((profit, index) => (
+                        <tr key={index}>
+                          <td>Day {profit.day}</td>
+                          <td>{profit.date}</td>
+                          <td className="profit-amount">{profit.profitAmount}</td>
+                          <td className="cumulative-amount">{profit.cumulativeTotal}</td>
+                          <td>
+                            <span className={`status-badge ${profit.status}`}>
+                              {profit.status.toUpperCase()}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" style={{ textAlign: 'center' }}>No profit history yet</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Referral Earnings Table */}
+            {userProfitHistory.referralEarnings.length > 0 && (
+              <div className="referrals-section">
+                <h4>🤝 Referral Earnings History</h4>
+                <div className="referrals-table-container">
+                  <table className="referrals-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>From User</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Rate</th>
+                        <th>Original Profit</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userProfitHistory.referralEarnings.map((earning, index) => (
+                        <tr key={index}>
+                          <td>{earning.date}</td>
+                          <td>{earning.fromUser}</td>
+                          <td>
+                            <span className={`type-badge ${earning.type === 'Signup Bonus' ? 'bonus' : 'commission'}`}>
+                              {earning.type}
+                            </span>
+                          </td>
+                          <td className="earning-amount">{earning.amount}</td>
+                          <td>{earning.percentage}</td>
+                          <td>{earning.originalProfit}</td>
+                          <td>
+                            <span className={`status-badge ${earning.status}`}>
+                              {earning.status.toUpperCase()}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="modal-footer">
+            <button
+              onClick={closeModals}
+              className="close-btn-modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   if (!isAuthenticated) {
     return (
       <div style={{
@@ -463,13 +650,14 @@ const AdminPanel = () => {
           </div>
 
           <nav className="admin-nav">
-            {['Dashboard', 'Users', 'Withdrawals', 'Settings'].map((tab) => (
+            {['Dashboard', 'Users', 'Approved Users', 'Withdrawals', 'Settings'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`nav-btn ${activeTab === tab ? 'active' : ''}`}
               >
-                {tab === 'Settings' ? '⚙️ Settings' : tab}
+                {tab === 'Settings' ? '⚙️ Settings' : 
+                 tab === 'Approved Users' ? '✅ Approved Users' : tab}
               </button>
             ))}
           </nav>
@@ -562,6 +750,70 @@ const AdminPanel = () => {
             </div>
           )}
 
+          {activeTab === 'Approved Users' && (
+            <div className="approved-users-section">
+              <h3>✅ Approved Users & Their Profits</h3>
+              <div className="approved-users-table">
+                {approvedUsers.length > 0 ? (
+                  approvedUsers.map((user) => (
+                    <div
+                      key={user.id}
+                      className="approved-user-card clickable-card"
+                      onClick={() => handleApprovedUserClick(user)}
+                    >
+                      <div className="approved-user-info">
+                        <h4>{user.email}</h4>
+                        <div className="user-stats-grid">
+                          <div className="stat-item">
+                            <label>Plan:</label>
+                            <span className="plan-badge">{user.plan.toUpperCase()}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Investment:</label>
+                            <span>{user.investmentAmount}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Daily Return:</label>
+                            <span>{user.dailyReturn}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Total Earned:</label>
+                            <span className="earning-amount">{user.totalEarned}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Referral Earnings:</label>
+                            <span className="referral-amount">{user.totalReferralEarnings}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Total Balance:</label>
+                            <span className="total-balance">{user.totalBalance}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Plan Started:</label>
+                            <span>{user.planStartDate}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Last Profit:</label>
+                            <span>{user.lastProfitDate}</span>
+                          </div>
+                          <div className="stat-item">
+                            <label>Status:</label>
+                            <span className={`status-badge ${user.isActive ? 'active' : 'inactive'}`}>
+                              {user.isActive ? 'ACTIVE' : 'INACTIVE'}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="click-hint">📊 Click to view detailed profit history</span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No approved users found.</p>
+                )}
+              </div>
+            </div>
+          )}
+
           {activeTab === 'Withdrawals' && (
             <div className="withdrawals-section">
               <h3>Withdrawal Requests</h3>
@@ -646,12 +898,12 @@ const AdminPanel = () => {
                       {savingAccount ? '💾 Saving...' : '💾 Save Changes'}
                     </button>
 
-                    <button
+                    {/* <button
                       onClick={handlePreviewSignup}
                       className="preview-btn"
                     >
                       👁️ Preview Signup Page
-                    </button>
+                    </button> */}
                   </div>
 
                   {accountMessage && (
@@ -660,16 +912,6 @@ const AdminPanel = () => {
                     </div>
                   )}
                 </div>
-
-                {/* <div className="settings-info">
-                  <h5>ℹ️ How it works:</h5>
-                  <ul>
-                    <li>Users will see this account number on the signup page</li>
-                    <li>They can copy it directly from a read-only text area</li>
-                    <li>Changes are applied immediately after saving</li>
-                    <li>Use the preview button to see how it looks to users</li>
-                  </ul>
-                </div> */}
               </div>
             </div>
           )}
@@ -678,6 +920,7 @@ const AdminPanel = () => {
 
       <UserDetailsModal />
       <WithdrawalDetailsModal />
+      <ProfitHistoryModal />
     </>
   );
 };

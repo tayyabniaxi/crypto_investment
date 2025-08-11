@@ -1,3 +1,404 @@
+/* About Us Section Styling */
+/* ===== EARNINGS SECTION STYLES - ADD TO YOUR CSS FILE ===== */
+
+/* Earnings Section Styling */
+.earnings-section {
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  padding: 50px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.earnings-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+}
+
+.earnings-section .main-heading1 {
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.earnings-section .main-heading1 p {
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.earnings-content {
+  position: relative;
+  z-index: 2;
+}
+
+.earnings-intro {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0.95;
+}
+
+.earnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.earning-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 35px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.earning-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+}
+
+.earning-card.referral-earning::before {
+  background: linear-gradient(90deg, #2196F3, #1976D2);
+}
+
+.earning-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.earning-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  font-size: 24px;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+}
+
+.referral-earning .earning-icon {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.3);
+}
+
+.earning-details {
+  text-align: center;
+}
+
+.earning-details h4 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.percentage {
+  font-size: 48px;
+  font-weight: 800;
+  color: #4CAF50;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.referral-earning .percentage {
+  color: #2196F3;
+  text-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.earning-details p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.earning-example {
+  background: #f8f9fa;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.referral-earning .earning-example {
+  border-left-color: #2196F3;
+}
+
+.earning-example small {
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.earnings-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.benefit-icon {
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Responsive Design for Earnings Section */
+@media screen and (max-width: 992px) {
+  .earnings-section {
+    padding: 40px 25px;
+    margin-bottom: 50px;
+  }
+  
+  .earnings-section .main-heading1 p {
+    font-size: 36px;
+  }
+  
+  .earnings-grid {
+    gap: 25px;
+  }
+  
+  .earning-card {
+    padding: 30px 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .earnings-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+  
+  .earnings-section .main-heading1 p {
+    font-size: 32px;
+  }
+  
+  .earnings-intro {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .earnings-benefits {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 25px;
+  }
+  
+  .percentage {
+    font-size: 42px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .earnings-section {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+    border-radius: 12px;
+  }
+  
+  .earnings-section .main-heading1 p {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  
+  .earning-card {
+    padding: 25px 20px;
+  }
+  
+  .earning-details h4 {
+    font-size: 22px;
+  }
+  
+  .percentage {
+    font-size: 36px;
+  }
+  
+  .earning-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .earnings-section {
+    padding: 25px 15px;
+  }
+  
+  .earnings-section .main-heading1 p {
+    font-size: 24px;
+  }
+  
+  .earnings-intro {
+    font-size: 15px;
+  }
+  
+  .earning-details h4 {
+    font-size: 20px;
+  }
+  
+  .percentage {
+    font-size: 32px;
+  }
+  
+  .earnings-benefits {
+    padding: 20px;
+  }
+  
+  .benefit-item {
+    font-size: 14px;
+  }
+}
+
+/* ===== END OF EARNINGS SECTION STYLES ===== */
+.about-us-section {
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  padding: 50px 30px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-us-section .main-heading1 {
+  margin-bottom: 40px;
+}
+
+.about-us-section .main-heading1 p {
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.about-content {
+  text-align: left;
+  line-height: 1.8;
+  color: #333;
+  font-size: 16px;
+}
+
+.about-content p {
+  margin-bottom: 24px;
+  text-align: justify;
+  font-weight: 400;
+  color: #4a5568;
+}
+
+.about-content p:first-child {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.vision-mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.vision, .mission {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #3498db;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vision:hover, .mission:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.vision h4, .mission h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.vision h4:before {
+  content: "🎯";
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.mission h4:before {
+  content: "🚀";
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.vision p, .mission p {
+  font-size: 15px;
+  color: #4a5568;
+  margin-bottom: 0;
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* Existing styles with updates */
 .cardsInside {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -6,18 +407,6 @@
   max-width: 1400px;
   margin: 0 auto;
   justify-items: center;
-}
-
-@media screen and (max-width: 992px) {
-  .cardsInside {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .cardsInside {
-    grid-template-columns: 1fr;
-  }
 }
 
 .main-heading1 p {
@@ -38,4 +427,94 @@
   background-color: #f8f8f8;
 }
 
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+  .cardsInside {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .about-us-section {
+    padding: 40px 25px;
+    margin-bottom: 50px;
+  }
+  
+  .about-us-section .main-heading1 p {
+    font-size: 36px;
+  }
+  
+  .vision-mission {
+    gap: 30px;
+  }
+  
+  .vision, .mission {
+    padding: 25px;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .vision-mission {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 30px;
+    padding-top: 25px;
+  }
+  
+  .about-us-section .main-heading1 p {
+    font-size: 30px;
+  }
+  
+  .about-content p {
+    font-size: 15px;
+  }
+  
+  .about-content p:first-child {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cardsInside {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-us-section {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+    border-radius: 12px;
+  }
+  
+  .about-us-section .main-heading1 p {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  
+  .vision, .mission {
+    padding: 20px;
+  }
+  
+  .vision h4, .mission h4 {
+    font-size: 18px;
+  }
+  
+  .about-content {
+    font-size: 14px;
+  }
+  
+  .about-content p:first-child {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-us-section {
+    padding: 25px 15px;
+  }
+  
+  .about-us-section .main-heading1 p {
+    font-size: 24px;
+  }
+  
+  .main-div-afterHero {
+    padding: 30px 15px;
+  }
+}

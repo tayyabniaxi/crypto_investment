@@ -6,6 +6,478 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+/* Enhanced Approved Users Section Styling */
+.approved-users-section {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.approved-users-section h3 {
+  color: #1f2937;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid #10b981;
+}
+
+.approved-users-table {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Enhanced Approved User Cards */
+.approved-user-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.approved-user-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #059669, #34d399);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.approved-user-card:hover::before {
+  opacity: 1;
+}
+
+.approved-user-card.clickable-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+}
+
+.approved-user-info {
+  position: relative;
+  z-index: 2;
+}
+
+.approved-user-info h4 {
+  color: #1f2937;
+  margin: 0 0 24px 0;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.approved-user-info h4::before {
+  content: '👤';
+  font-size: 20px;
+}
+
+/* Enhanced Stats Grid for Approved Users */
+.user-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.stat-item:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.stat-item label {
+  font-weight: 600;
+  color: #4b5563;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.stat-item span {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+/* Enhanced Badge Styling */
+.plan-badge {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  color: white !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3) !important;
+}
+
+.earning-amount {
+  color: #10b981 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+}
+
+.referral-amount {
+  color: #f59e0b !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+}
+
+.total-balance {
+  color: #8b5cf6 !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.status-badge.active {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  padding: 4px 12px !important;
+  border-radius: 16px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
+}
+
+.status-badge.inactive {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  color: white !important;
+  padding: 4px 12px !important;
+  border-radius: 16px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3) !important;
+}
+
+.approved-user-card .click-hint {
+  color: #10b981 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  font-style: italic !important;
+  display: block !important;
+  margin-top: 16px !important;
+  text-align: center !important;
+  padding: 12px !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+  border-radius: 8px !important;
+  border: 1px dashed #10b981 !important;
+}
+
+/* Enhanced Profit History Modal */
+.profit-history-modal {
+  max-width: 1200px !important;
+  max-height: 95vh !important;
+}
+
+.profit-history-modal .modal-header {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.profit-history-modal .modal-header h3 {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.profit-history-modal .close-btn {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.profit-history-modal .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* User Summary Section in Modal */
+.user-summary-section {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  padding: 24px;
+  border-radius: 16px;
+  border: 2px solid #bbf7d0;
+}
+
+.user-summary-section h4 {
+  color: #065f46;
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.summary-item {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d1fae5;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+  transition: all 0.3s ease;
+}
+
+.summary-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+}
+
+.summary-item label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+  margin: 0;
+}
+
+.summary-item span {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.summary-item .earnings {
+  color: #10b981 !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+}
+
+.summary-item .total-balance {
+  color: #8b5cf6 !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+}
+
+/* Enhanced Tables in Modal */
+.profits-section,
+.referrals-section {
+  margin-bottom: 32px;
+}
+
+.profits-section h4,
+.referrals-section h4 {
+  color: #1f2937;
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.profits-table-container,
+.referrals-table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profits-table,
+.referrals-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.profits-table thead,
+.referrals-table thead {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+}
+
+.profits-table th,
+.referrals-table th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: #374151;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.profits-table td,
+.referrals-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.profits-table tbody tr:hover,
+.referrals-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.profits-table tbody tr:nth-child(even),
+.referrals-table tbody tr:nth-child(even) {
+  background: rgba(248, 250, 252, 0.5);
+}
+
+.profit-amount,
+.earning-amount {
+  color: #10b981 !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+.cumulative-amount {
+  color: #3b82f6 !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+.type-badge.bonus {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: white !important;
+  padding: 4px 10px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.type-badge.commission {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+  color: white !important;
+  padding: 4px 10px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.close-btn-modal {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.close-btn-modal:hover {
+  background: linear-gradient(135deg, #4b5563, #374151);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+}
+
+/* Responsive Design for Approved Users */
+@media (max-width: 768px) {
+  .approved-users-section {
+    padding: 16px;
+  }
+
+  .approved-user-card {
+    padding: 20px;
+  }
+
+  .user-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .profit-history-modal {
+    width: 98% !important;
+    max-width: none !important;
+    margin: 10px !important;
+  }
+
+  .profits-table-container,
+  .referrals-table-container {
+    overflow-x: auto;
+  }
+
+  .profits-table,
+  .referrals-table {
+    min-width: 600px;
+  }
+
+  .approved-user-info h4 {
+    font-size: 18px;
+  }
+
+  .stat-item {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .approved-users-section h3 {
+    font-size: 22px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .user-stats-grid {
+    gap: 8px;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .profits-table th,
+  .profits-table td,
+  .referrals-table th,
+  .referrals-table td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+}
+
 .admin-login-form {
   background: white;
   padding: 40px;
