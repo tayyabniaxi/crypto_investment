@@ -22,6 +22,15 @@ const RegisterModal = () => {
   const [adminAccountNumber, setAdminAccountNumber] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // Email regex pattern
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
+  // Phone regex pattern (supports various formats)
+  const phoneRegex = /^(\+92|92|0)?[0-9]{10,11}$/;
+  
+  // Password regex pattern (at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character)
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
   useEffect(() => {
     const planFromUrl = searchParams.get('plan');
     const refFromUrl = searchParams.get('ref');
@@ -84,21 +93,62 @@ const RegisterModal = () => {
     }
   };
 
+  // Validation functions
+  const validateEmailOrPhone = (value) => {
+    if (!value.trim()) {
+      return "Email or phone number is required";
+    }
+    
+    // Check if it's an email
+    if (value.includes('@')) {
+      if (!emailRegex.test(value)) {
+        return "Please enter a valid email address (e.g., user@example.com)";
+      }
+    } else {
+      // Check if it's a phone number
+      const cleanPhone = value.replace(/\s+/g, '').replace(/-/g, '');
+      if (!phoneRegex.test(cleanPhone)) {
+        return "Please enter a valid phone number (e.g., 03001234567 or +923001234567)";
+      }
+    }
+    
+    return null;
+  };
+
+  const validatePassword = (value) => {
+    if (!value.trim()) {
+      return "Password is required";
+    }
+    
+    if (value.length < 8) {
+      return "Password must be at least 8 characters long";
+    }
+    
+    if (!passwordRegex.test(value)) {
+      return "Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (@$!%*?&)";
+    }
+    
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newErrors = {};
 
-    if (!emailOrPhone.trim()) {
-      newErrors.emailOrPhone = "Email or phone is required";
+    // Validate email/phone
+    const emailPhoneError = validateEmailOrPhone(emailOrPhone);
+    if (emailPhoneError) {
+      newErrors.emailOrPhone = emailPhoneError;
     }
 
-    if (!password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    // Validate password
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      newErrors.password = passwordError;
     }
 
+    // Validate confirm password
     if (!confirmPassword.trim()) {
       newErrors.confirmPassword = "Please confirm your password";
     } else if (password !== confirmPassword) {
@@ -187,10 +237,10 @@ const RegisterModal = () => {
             )}  */}
 
             <form onSubmit={handleSubmit}>
-              <label>Email, Phone</label>
+              <label>Email or Phone Number</label>
               <input
                 type="text"
-                placeholder="Enter your email or phone number"
+                placeholder="Enter your email (e.g., user@example.com) or phone (e.g., 03001234567)"
                 value={emailOrPhone}
                 onChange={(e) => setEmailOrPhone(e.target.value)}
               />
@@ -201,7 +251,7 @@ const RegisterModal = () => {
               <label>Password</label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Enter a strong password (8+ chars, with uppercase, lowercase, number & special char)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -212,7 +262,7 @@ const RegisterModal = () => {
               <label>Confirm Password</label>
               <input
                 type="password"
-                placeholder="Enter to confirm password"
+                placeholder="Re-enter your password to confirm"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
