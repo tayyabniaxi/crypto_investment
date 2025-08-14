@@ -96,7 +96,7 @@ const RegisterModal = () => {
   // Validation functions
   const validateEmailOrPhone = (value) => {
     if (!value.trim()) {
-      return "Email or phone number is required";
+      return "Email is required";
     }
     
     // Check if it's an email
@@ -105,10 +105,10 @@ const RegisterModal = () => {
         return "Please enter a valid email address (e.g., user@example.com)";
       }
     } else {
-      // Check if it's a phone number
+    
       const cleanPhone = value.replace(/\s+/g, '').replace(/-/g, '');
       if (!phoneRegex.test(cleanPhone)) {
-        return "Please enter a valid phone number (e.g., 03001234567 or +923001234567)";
+        return "Please enter a valid email (e.g., user@example.com)";
       }
     }
     
@@ -237,10 +237,10 @@ const RegisterModal = () => {
             )}  */}
 
             <form onSubmit={handleSubmit}>
-              <label>Email or Phone Number</label>
+              <label>Email</label>
               <input
                 type="text"
-                placeholder="Enter your email (e.g., user@example.com) or phone (e.g., 03001234567)"
+                placeholder="Enter your email (e.g., user@example.com)"
                 value={emailOrPhone}
                 onChange={(e) => setEmailOrPhone(e.target.value)}
               />
@@ -372,7 +372,7 @@ const RegisterModal = () => {
             </p>
             {referralCode && (
               <p className="referral-success">
-                🎉 You were referred by someone! They will receive a $3 bonus when your account gets approved by admin.
+                🎉 You were referred by someone! They will receive a 3% of investmnet bonus when your account gets approved by admin.
               </p>
             )}
             <p>

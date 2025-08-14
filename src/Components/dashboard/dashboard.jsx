@@ -295,15 +295,17 @@ const Dashboard = () => {
     });
   };
 
+  // UPDATED: Remove $30 minimum check
   const isWithdrawalAvailable = () => {
     const balance = parseFloat(withdrawalStats.availableBalance.replace('$', '')) || 0;
-    return userData?.verificationStatus === 'approved' && balance >= 30;
+    return userData?.verificationStatus === 'approved' && balance > 0;
   };
 
   const getAvailableBalance = () => {
     return parseFloat(withdrawalStats.availableBalance.replace('$', '')) || 0;
   };
 
+  // UPDATED: Remove all $30 minimum checks
   const handleWithdrawRequest = async () => {
     if (userData?.verificationStatus !== 'approved') {
       alert('Withdrawal features are only available for approved accounts.');
@@ -315,22 +317,12 @@ const Dashboard = () => {
       return;
     }
 
-    if (parseFloat(withdrawAmount) < 30) {
-      alert('Minimum withdrawal amount is $30');
-      return;
-    }
-
     if (!binanceWallet || !binanceWallet.trim()) {
       alert('Please enter your Binance wallet address');
       return;
     }
 
     const availableBalance = parseFloat(withdrawalStats.availableBalance.replace('$', '')) || 0;
-
-    if (availableBalance < 30) {
-      alert(`Minimum balance of $30 required for withdrawal. Available: ${withdrawalStats.availableBalance}`);
-      return;
-    }
 
     if (parseFloat(withdrawAmount) > availableBalance) {
       alert(`Insufficient balance. Available: ${withdrawalStats.availableBalance}`);
@@ -382,14 +374,14 @@ const Dashboard = () => {
     }
   };
 
-if (loading) {
-  return (
-    <div className="loading-container">
-      <div className="loading-spinner"></div>
-      <span>Loading...</span>
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <span>Loading...</span>
+      </div>
+    );
+  }
 
   const userPlan = userData?.selectedPlan;
   const planName = userPlan?.planName || 'No Plan';
@@ -414,19 +406,19 @@ if (loading) {
         <div className="stat-card">
           <h3>Daily Return</h3>
           <p className="stat-value">{dailyReturn}</p>
-          <small>1% Daily</small>
+          <small>Daily Profit (Mon-Fri)</small>
         </div>
 
         <div className="stat-card">
           <h3>Weekly Income</h3>
           <p className="stat-value">{userPlan?.weeklyIncome || '$0'}</p>
-          <small>Expected Weekly</small>
+          <small>5 Working Days</small>
         </div>
 
         <div className="stat-card">
           <h3>Total Earned</h3>
           <p className="stat-value">
-            {userData?.verificationStatus === 'approved' ? `$${totalEarned}` : '$0.00'}
+            {userData?.verificationStatus === 'approved' ? `$${totalEarned.toFixed(2)}` : '$0.00'}
           </p>
           <small>Investment Earnings</small>
         </div>
@@ -436,7 +428,7 @@ if (loading) {
           <p className="stat-value">
             {userData?.verificationStatus === 'approved' ? referralData.referralEarnings : '$0.00'}
           </p>
-          <small>Commission Earned</small>
+          <small>3% + 20% Commissions</small>
         </div>
 
         <div className="stat-card">
@@ -515,15 +507,34 @@ if (loading) {
     return (
       <div className="referral-section">
         <div className="referral-header">
-          <h3>Share Your Referral code</h3>
+          <h3>Share Your Referral Code</h3>
           <div className="referral-link-container">
             <input
               type="text"
-              value={referralData.referralLink || `${referralData.referralCode}`}
+              value={referralData.referralLink || `${window.location.origin}/register?ref=${referralData.referralCode}`}
               readOnly
               className="referral-input"
             />
             <button onClick={copyReferralLink} className="copy-btn">Copy Link</button>
+          </div>
+        </div>
+
+        {/* Commission Structure Info */}
+        <div className="commission-info">
+          <h4>💰 Commission Structure</h4>
+          <div className="commission-cards">
+            <div className="commission-card">
+              <div className="commission-icon">🎁</div>
+              <h5>Signup Bonus</h5>
+              <p className="commission-rate">3% of Investment</p>
+              <small>When referred user gets approved</small>
+            </div>
+            <div className="commission-card">
+              <div className="commission-icon">📅</div>
+              <h5>Daily Commission</h5>
+              <p className="commission-rate">20% of Daily Profit</p>
+              <small>From each referred user's daily profit</small>
+            </div>
           </div>
         </div>
 
@@ -538,7 +549,7 @@ if (loading) {
           </div>
           <div className="stat-item">
             <span className="stat-number">{referralData.referralEarnings}</span>
-            <span className="stat-label">Referral Earnings</span>
+            <span className="stat-label">Total Earnings</span>
           </div>
         </div>
 
@@ -601,18 +612,13 @@ if (loading) {
                 type="number"
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(e.target.value)}
-                placeholder={isWithdrawalAvailable() ? "Enter amount (Min: $30)" : "Insufficient balance"}
+                placeholder={isWithdrawalAvailable() ? "Enter amount" : "Insufficient balance"}
                 className="withdraw-input"
-                min="30"
+                min="0.01"
                 step="0.01"
                 max={getAvailableBalance()}
                 disabled={!isWithdrawalAvailable() || isSubmittingWithdrawal}
               />
-              {!isWithdrawalAvailable() && getAvailableBalance() > 0 && getAvailableBalance() < 30 && (
-                <small className="error-text">
-                  Need ${(30 - getAvailableBalance()).toFixed(2)} more to reach minimum withdrawal
-                </small>
-              )}
             </div>
             <div className="form-group">
               <label>Binance Wallet Address</label>
@@ -620,29 +626,16 @@ if (loading) {
                 type="text"
                 value={binanceWallet}
                 onChange={(e) => setBinanceWallet(e.target.value)}
-                placeholder={isWithdrawalAvailable() ? "Enter your Binance wallet address" : "Available after reaching $30 balance"}
+                placeholder={isWithdrawalAvailable() ? "Enter your Binance wallet address" : "Available when you have balance"}
                 className="withdraw-input"
                 disabled={!isWithdrawalAvailable() || isSubmittingWithdrawal}
               />
               <small>Only Binance wallet addresses are accepted</small>
             </div>
             <div className="form-group">
-              <label>Available Balance: <strong className={getAvailableBalance() >= 30 ? 'text-success' : 'text-danger'}>{withdrawalStats.availableBalance}</strong></label>
+              <label>Available Balance: <strong className={getAvailableBalance() > 0 ? 'text-success' : 'text-danger'}>{withdrawalStats.availableBalance}</strong></label>
               <small>Total Earned: {withdrawalStats.totalEarned} | Total Withdrawn: {withdrawalStats.totalWithdrawn}</small>
-              <small className="error-text bold">Minimum withdrawal: $30</small>
-              {!isWithdrawalAvailable() && getAvailableBalance() < 30 && (
-                <div className="withdrawal-requirements">
-                  <div className="requirements-header">
-                    <span>⚠️</span>
-                    <strong>Withdrawal Requirements</strong>
-                  </div>
-                  <div className="requirements-text">
-                    • Minimum balance: $30.00<br />
-                    • Current balance: {withdrawalStats.availableBalance}<br />
-                    • Need: ${Math.max(0, 30 - getAvailableBalance()).toFixed(2)} more
-                  </div>
-                </div>
-              )}
+              <small className="info-text">Withdraw any amount available - No minimum limit</small>
             </div>
             <button
               onClick={handleWithdrawRequest}
@@ -651,7 +644,7 @@ if (loading) {
             >
               {isSubmittingWithdrawal ? 'Processing...' :
                 !isWithdrawalAvailable() ?
-                  (getAvailableBalance() < 30 ? 'Insufficient Balance' : 'Account Not Approved') :
+                  (getAvailableBalance() <= 0 ? 'No Balance Available' : 'Account Not Approved') :
                   'Request Withdrawal'
               }
             </button>
@@ -708,7 +701,11 @@ if (loading) {
                     <div className="earnings-info">
                       <div className="earning-item">
                         <span className="earning-label">Investment:</span>
-                        <span className="earning-value">${userData?.verificationStatus === 'approved' ? totalEarned : '0.00'}</span>
+                        <span className="earning-value">{userPlan?.investmentAmount || '$0'}</span>
+                      </div>
+                      <div className="earning-item">
+                        <span className="earning-label">Total Earned:</span>
+                        <span className="earning-value">${userData?.verificationStatus === 'approved' ? totalEarned.toFixed(2) : '0.00'}</span>
                       </div>
                       <div className="earning-item">
                         <span className="earning-label">Referral:</span>
@@ -767,8 +764,8 @@ if (loading) {
                 <p className="page-subtitle">
                   {activeTab === 'Overview' && 'Your investment performance and statistics'}
                   {activeTab === 'History' && 'Check your transaction history'}
-                  {activeTab === 'Referral' && 'Invite friends and earn commissions'}
-                  {activeTab === 'Withdraw' && 'Manage your withdrawals (Min: $30)'}
+                  {activeTab === 'Referral' && 'Invite friends and earn 3% + 20% commissions'}
+                  {activeTab === 'Withdraw' && 'Manage your withdrawals (Any amount available)'}
                 </p>
                 {userData?.verificationStatus === 'pending' && (
                   <div className="status-alert pending">
@@ -788,7 +785,7 @@ if (loading) {
                 )}
                 {userData?.verificationStatus === 'approved' && (
                   <div className="status-alert approved">
-                    ✅ Account Verified & Active
+                    ✅ Account Verified & Active - Earning daily profits (Mon-Fri)
                   </div>
                 )}
                 {userData?.verificationStatus === 'rejected' && (
